@@ -26,7 +26,7 @@ MonoBehaviour:
   JumpCutMultiplier: 0.5
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   GroundCheckPosition: {x: 0, y: -0.95}
   GroundCheckRadius: 0.1
   WallJumpTime: 0.25

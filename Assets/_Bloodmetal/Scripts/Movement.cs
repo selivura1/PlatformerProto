@@ -17,6 +17,7 @@ namespace Bloodmetal
         private float _lastWallHangedTime;
         private WallCheckBox _rightWallCheck;
         private WallCheckBox _leftWallCheck;
+        private PlayerDirection _playerDirection;
         [SerializeField] private MovementData _data;
         Rigidbody2D _rb;
 
@@ -25,6 +26,7 @@ namespace Bloodmetal
             _rb = GetComponent<Rigidbody2D>();
             _rightWallCheck = new WallCheckBox(_data.RightWallCheck.Size, _data.RightWallCheck.Position);
             _leftWallCheck = new WallCheckBox(_data.LeftWallCheck.Size, _data.LeftWallCheck.Position);
+            _playerDirection = GetComponent<PlayerDirection>();
         }
         public void MoveHorizontally(float input)
         {
@@ -43,6 +45,12 @@ namespace Bloodmetal
             }
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, _data.VelocityPower) * Mathf.Sign(speedDiff);
             _rb.AddForce(Vector2.right * movement);
+            if(_lastWallHangedTime < 0 && Mathf.Abs(input) > 0.1f)
+                _playerDirection.SetDirection(new Vector2(input, _playerDirection.Direction.y));
+        }
+        public void StopMoving()
+        {
+            _rb.velocity /= 100;
         }
         public void InputJump()
         {
@@ -110,7 +118,16 @@ namespace Bloodmetal
                 _leftWallCheck.LastHangedTime = _data.CoyoteTime;
             }
             _lastWallHangedTime = Mathf.Max(_leftWallCheck.LastHangedTime, _rightWallCheck.LastHangedTime);
-            if(_isJumping && _rb.velocity.y < 0)
+
+            if(_rightWallCheck.LastHangedTime > 0)
+            {
+                _playerDirection.SetDirection(new Vector2(-1, _playerDirection.Direction.y));
+            }
+            else if(_leftWallCheck.LastHangedTime > 0)
+            {
+                _playerDirection.SetDirection(new Vector2(1, _playerDirection.Direction.y));
+            }
+            if (_isJumping && _rb.velocity.y < 0)
             { 
                 _isJumping = false;
             }
@@ -131,7 +148,6 @@ namespace Bloodmetal
                 _rb.gravityScale = _data.GravityScale;
             }
 
-            
         }
         private bool CanJump()
         {
@@ -153,19 +169,17 @@ namespace Bloodmetal
         }
     }
     [System.Serializable]
-    public class WallCheckBox
+    public class WallCheckBox : CheckBox
     {
-        public Vector3 Size;
-        public Vector3 Position;
         public float LastHangedTime = 0;
+        public WallCheckBox(Vector2 size, Vector2 position) : base(size, position)
+        {
+
+        }
+
         public bool IsHanged()
         {
             return LastHangedTime >0;
-        }
-        public WallCheckBox(Vector2 size, Vector2 position)
-        {
-            Size = size;
-            Position = position;
         }
     }
 }

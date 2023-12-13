@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+
 namespace Bloodmetal
 {
     public class PlayerInputHandler : MonoBehaviour
     {
         private PlayerInput _input;
-        //PlayerCombat _combat;
+        PlayerCombat _combat;
         Movement _movement;
+        PlayerDirection _direction;
         //EntityAttributes _attributes;
         public MainControls Controls { get; private set; }
-        public float HorizontalMovement { get; private set; }
+        public Vector2 DirectionInput { get; private set; }
         public bool Attack { get; private set; } = false;
         public bool AltAttack { get; private set; } = false;
         bool _isGamepad => _input.currentControlScheme.Equals("GAMEPAD");
@@ -17,8 +20,9 @@ namespace Bloodmetal
         {
             Controls = new MainControls();
             Controls.Enable();
+            _direction = GetComponent<PlayerDirection>();
             _input = GetComponent<PlayerInput>();
-            //_combat = GetComponent<PlayerCombat>();
+            _combat = GetComponent<PlayerCombat>();
             _movement = GetComponent<Movement>();
             //_attributes = GetComponent<EntityAttributes>();
         }
@@ -43,14 +47,10 @@ namespace Bloodmetal
         }
         private void RecieveInput()
         {
-            HorizontalMovement = Controls.Game.Move.ReadValue<Vector2>().x;
+            DirectionInput = Controls.Game.Move.ReadValue<Vector2>();
 
-            //if (Mathf.Abs(HorizontalMovement) > 0)
-            //{
-            _movement.MoveHorizontally(HorizontalMovement);
-            //if (Dash)
-            //    _movement.Dash(Movement);
-            //}
+            _movement.MoveHorizontally(DirectionInput.x);
+            _direction.SetDirection(new Vector2(_direction.Direction.x, DirectionInput.y));
             if (Controls.Game.Jump.WasPressedThisFrame())
             {
                 _movement.InputJump();
@@ -59,8 +59,12 @@ namespace Bloodmetal
             {
                 _movement.ReleaseJump();
             }
-            Attack = Controls.Game.Attack.IsPressed();
+            Attack = Controls.Game.Attack.WasPerformedThisFrame();
             AltAttack = Controls.Game.AltAttack.IsPressed();
+            if(Attack)
+            {
+                _combat.MeleeAttack();
+            }
             //if (Attack)
             //    _combat.PrimaryAttack(Aim);
             //if(AltAttack)
