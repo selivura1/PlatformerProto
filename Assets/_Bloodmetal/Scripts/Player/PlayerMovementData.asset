@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f12717274ee52046a48d9f1e04d1888, type: 3}
+  m_Name: PlayerMovementData
+  m_EditorClassIdentifier: 
+  MovementSpeed: 10
+  Acceleration: 3
+  Deceleration: 3
+  AirAccelMult: 0.25
+  VelocityPower: 1
+  MidAirMovementSpeed: 5
+  JumpForce: 7
+  JumpBufferTime: 0.2
+  GravityScale: 1
+  FallGravityMultiplier: 2
+  CoyoteTime: 0.16
+  JumpCutMultiplier: 0.5
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundCheckPosition: {x: 0, y: -0.95}
+  GroundCheckRadius: 0.1
+  WallJumpTime: 0.25
+  WallJumpDirection: {x: 10, y: 5}
+  RightWallCheck:
+    Size: {x: 0.1, y: 1.2, z: 0}
+    Position: {x: 0.25, y: -0.25, z: 0}
+    LastHangedTime: 0
+  LeftWallCheck:
+    Size: {x: 0.1, y: 1.2, z: 0}
+    Position: {x: -0.25, y: -0.25, z: 0}
+    LastHangedTime: 0
