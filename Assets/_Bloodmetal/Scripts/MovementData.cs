@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bloodmetal
+namespace Selivura
 {
     [CreateAssetMenu()]
     public class MovementData : ScriptableObject
@@ -20,8 +20,12 @@ namespace Bloodmetal
         public float FallGravityMultiplier = 2f;
         public float CoyoteTime = 0.16f;
         public float JumpCutMultiplier = 1f;
+        public float DashCooldown = 1;
+        public float DashForce = 10;
+        public float DashTime = 0.25f;
 
         public LayerMask GroundLayer;
+        public LayerMask WallJumpLayer = 64;
         public Vector2 GroundCheckPosition = new Vector2(0, -0.95f);
         public float GroundCheckRadius = 0.1f;
         public float WallJumpTime = 0.25f;

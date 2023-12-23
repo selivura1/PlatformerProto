@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-namespace Bloodmetal
+namespace Selivura
 {
     public class PlayerInputHandler : MonoBehaviour
     {
         private PlayerInput _input;
-        PlayerCombat _combat;
-        Movement _movement;
+        CombatHandler _combat;
+        PlayerMovement _movement;
         PlayerDirection _direction;
         //EntityAttributes _attributes;
         public MainControls Controls { get; private set; }
@@ -16,14 +16,15 @@ namespace Bloodmetal
         public bool Attack { get; private set; } = false;
         public bool AltAttack { get; private set; } = false;
         bool _isGamepad => _input.currentControlScheme.Equals("GAMEPAD");
+        public bool EnableControls = true;
         private void OnEnable()
         {
             Controls = new MainControls();
             Controls.Enable();
             _direction = GetComponent<PlayerDirection>();
             _input = GetComponent<PlayerInput>();
-            _combat = GetComponent<PlayerCombat>();
-            _movement = GetComponent<Movement>();
+            _combat = GetComponent<CombatHandler>();
+            _movement = GetComponent<PlayerMovement>();
             //_attributes = GetComponent<EntityAttributes>();
         }
         private void OnDisable()
@@ -47,28 +48,37 @@ namespace Bloodmetal
         }
         private void RecieveInput()
         {
+            if (!EnableControls)
+                return;
             DirectionInput = Controls.Game.Move.ReadValue<Vector2>();
 
             _movement.MoveHorizontally(DirectionInput.x);
             _direction.SetDirection(new Vector2(_direction.Direction.x, DirectionInput.y));
+
+            if (Controls.Game.Dash.WasPerformedThisFrame())
+                _movement.Dash(Mathf.RoundToInt(DirectionInput.x));
             if (Controls.Game.Jump.WasPressedThisFrame())
             {
                 _movement.InputJump();
             }
-            if(Controls.Game.Jump.WasReleasedThisFrame())
+            if (Controls.Game.Jump.WasReleasedThisFrame())
             {
                 _movement.ReleaseJump();
             }
-            Attack = Controls.Game.Attack.WasPerformedThisFrame();
-            AltAttack = Controls.Game.AltAttack.IsPressed();
-            if(Attack)
-            {
+
+            Attack = Controls.Game.Attack.IsPressed();
+            AltAttack = Controls.Game.AltAttack.WasPerformedThisFrame();
+            if (AltAttack)
                 _combat.MeleeAttack();
+            if (Attack)
+            {
+                if (_isGamepad)
+                    _combat.CurrentWeapon.Attack(Controls.Game.Aim.ReadValue<Vector2>());
+                else
+                {
+                    _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+                }
             }
-            //if (Attack)
-            //    _combat.PrimaryAttack(Aim);
-            //if(AltAttack)
-            //    _combat.SecondaryAttack(Aim);
         }
     }
 }
