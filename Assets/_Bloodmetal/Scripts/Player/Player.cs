@@ -10,20 +10,18 @@ namespace Selivura
         public int Score { get; private set; }
         public float Health { get; private set; } = 12;
         public float MaxHealth { get { return _baseHealth + AdditiveHealth; }}
+
         [SerializeField] float _baseHealth = 10;
         public float AdditiveHealth = 0;
+
         private PlayerMovement _movement;
         private Checkpoint _checkpoint;
-        private SaveManager _saveManager;
+
         public delegate void PlayerRespawnDelegate();
         public event PlayerRespawnDelegate OnPlayerRespawn;
         public event PlayerRespawnDelegate OnPlayerRestart;
-
-        public const int HEALTH_UPGRADE_AMOUNT = 5;
-        private void Awake()
+        private void Start()
         {
-            _saveManager = FindAnyObjectByType<SaveManager>();
-            _movement = GetComponent<PlayerMovement>();
             Initialize();
         }
         public void Initialize()
@@ -49,6 +47,8 @@ namespace Selivura
         }
         public void Respawn()
         {
+            if(!_movement)
+                _movement = GetComponent<PlayerMovement>();
             gameObject.SetActive(true);
             _movement.StopMoving();
             Initialize();

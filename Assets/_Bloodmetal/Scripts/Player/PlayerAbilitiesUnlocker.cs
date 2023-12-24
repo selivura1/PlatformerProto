@@ -10,6 +10,8 @@ namespace Selivura
         SaveManager _saveManager;
         PlayerMovement _movement;
         Player _player;
+
+        public const int UPGRADE_HEALTH_AMOUNT = 5;
         private void Awake()
         {
             _saveManager = FindAnyObjectByType<SaveManager>();

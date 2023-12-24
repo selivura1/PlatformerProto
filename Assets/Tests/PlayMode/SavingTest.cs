@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 public class SavingTest
 {
-    private SaveManager CreateTestSaveEnvironment()
+    private static SaveManager CreateTestSaveEnvironment()
     {
         var saveManager = GameObject.FindAnyObjectByType<SaveManager>();
         saveManager.EnableSaveWriting = false;
@@ -26,8 +26,8 @@ public class SavingTest
         yield return levelLoader.LoadLevel(0);
         var level = levelLoader.CurrentLevel;
         var levelIndex = levelLoader.CurrentLevelIndex;
-        level.CompleteLevel();
-        if (saveManager.GetLevelsProgress()[levelIndex].Completed)
+        level.Quit(true);
+        if (saveManager.GetLevelsProgress(levelIndex).Completed)
             Assert.Pass();
         else
             Assert.Fail();
@@ -44,11 +44,11 @@ public class SavingTest
 
         var level = levelLoader.CurrentLevel;
         var levelIndex = levelLoader.CurrentLevelIndex;
-        var currentLevelData = saveManager.GetLevelsProgress()[levelLoader.CurrentLevelIndex].Completed;
+        var currentLevelData = saveManager.GetLevelsProgress(levelLoader.CurrentLevelIndex).Completed;
 
-        level.CancelLevel();
+        level.Quit(false);
 
-        if (saveManager.GetLevelsProgress()[levelIndex].Completed == currentLevelData)
+        if (saveManager.GetLevelsProgress(levelIndex).Completed == currentLevelData)
             Assert.Pass();
         else
             Assert.Fail();
@@ -70,7 +70,7 @@ public class SavingTest
         var shop = GameObject.FindAnyObjectByType<Shop>();
         int itemIndex = 0;
 
-        if (shop.BuyUpgrade(itemIndex))
+        if (shop.Buy(itemIndex, saveManager.GetCurrentMoney()))
             Assert.Fail();
         else
             Assert.Pass();
@@ -82,11 +82,41 @@ public class SavingTest
         var saveManager = CreateTestSaveEnvironment();
         var shop = GameObject.FindAnyObjectByType<Shop>();
         int itemIndex = 0;
-        saveManager.ChangeMoney(shop.Upgrades[itemIndex].Price);
-        if (shop.BuyUpgrade(0) && saveManager.GetCurrentMoney() == 0)
+        saveManager.ChangeMoney(shop.Items[itemIndex].Price);
+        if (shop.Buy(0, saveManager.GetCurrentMoney()))
         {
             Assert.Pass();
         }
+        else
+            Assert.Fail();
+    }
+
+    [UnityTest]
+    public IEnumerator EquipmentNotUnlockedWeaponEquipTest()
+    {
+        yield return SceneManager.LoadSceneAsync(0);
+        var saveManager = CreateTestSaveEnvironment();
+        var equipment = GameObject.FindAnyObjectByType<EquipmentManager>();
+        var weaponID = 1;
+
+        if (equipment.EquipWeapon(weaponID))
+            Assert.Fail();
+        else
+            Assert.Pass();
+        
+    }
+    [UnityTest]
+    public IEnumerator EquipmentUnlockedWeaponEquipTest()
+    {
+        yield return SceneManager.LoadSceneAsync(0);
+        var saveManager = CreateTestSaveEnvironment();
+        var combatHandler = GameObject.FindAnyObjectByType<CombatHandler>();
+        var equipment = GameObject.FindAnyObjectByType<EquipmentManager>();
+        var weaponID = 1;
+        saveManager.UnlockWeapon(weaponID);
+        equipment.UpdateAvailableEquipment(GameObject.FindAnyObjectByType<Database>().EquippableWeapons);
+        if (equipment.EquipWeapon(weaponID))
+            Assert.Pass();
         else
             Assert.Fail();
     }

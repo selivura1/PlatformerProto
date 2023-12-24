@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39207841}
   - component: {fileID: 39207840}
+  - component: {fileID: 39207842}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -148,20 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22160e23f333d5a4c8a1f1dda5609074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapons: []
-  _upgrades:
-  - Name: Health up
-    Price: 250
-    Owned: 0
-    UpgradeID: 0
-  - Name: Health up
-    Price: 250
-    Owned: 0
-    UpgradeID: 0
-  - Name: Health up
-    Price: 250
-    Owned: 0
-    UpgradeID: 0
 --- !u!4 &39207841
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +164,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39207842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39207839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6985862eeaf8a744597d276dfef1660c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponsToSell:
+  - Name: Revolver
+    Price: 250
+    WeaponID: 1
+  - Name: Sniper rifle
+    Price: 250
+    WeaponID: 2
+  _upgradesToSell:
+  - Name: HP+
+    Price: 250
+    UpgradeID: 0
+  - Name: HP+
+    Price: 500
+    UpgradeID: 1
+  - Name: HP+
+    Price: 750
+    UpgradeID: 2
 --- !u!1 &40041595
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 40041598}
   - component: {fileID: 40041597}
-  - component: {fileID: 40041596}
+  - component: {fileID: 40041599}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -195,26 +211,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &40041596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40041595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &40041597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +241,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &40041599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40041595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &49522926
 GameObject:
   m_ObjectHideFlags: 3
@@ -409,21 +435,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blankSave:
+    LastEquippedWeapon: 0
     WallJumpUnlocked: 0
     DashUnlocked: 0
-    LevelUnlockProgress: 010000
     LevelProgress:
-    - Completed: 0
-    - Completed: 0
-    - Completed: 0
+    - Unlocked: 1
+      Completed: 0
+    - Unlocked: 0
+      Completed: 0
+    - Unlocked: 0
+      Completed: 0
     WeaponsUnlocked: 010000
     HealthUpgradesUnlocked: 000000
     Money: 0
-  save:
+  _save:
+    LastEquippedWeapon: 0
     WallJumpUnlocked: 0
     DashUnlocked: 0
-    LevelUnlockProgress: 
-    LevelProgress: []
+    LevelProgress:
+    - Unlocked: 0
+      Completed: 0
     WeaponsUnlocked: 01000000
     HealthUpgradesUnlocked: 000000
     Money: 0
@@ -712,6 +743,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204493690}
   m_CullTransparentMesh: 1
+--- !u!1 &245559716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 245559719}
+  - component: {fileID: 245559720}
+  m_Layer: 0
+  m_Name: Equipment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &245559719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245559716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &245559720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245559716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f735dace8dc69274c88d13eb61bdfbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &263869004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -867,6 +942,7 @@ GameObject:
   - component: {fileID: 418145193}
   - component: {fileID: 418145194}
   - component: {fileID: 418145195}
+  - component: {fileID: 418145196}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1137,7 +1213,6 @@ MonoBehaviour:
   _attackCastTime: 0.05
   _attackEndTime: 0.1
   _punchPower: 15
-  _startWeapon: {fileID: 2759766354225911844, guid: 66b22b3ab9034cd43aec896fcef2dae1, type: 3}
 --- !u!114 &418145194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1239,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d62344b3a8651ec448a3b3f9b50c0c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &418145196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418145177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e178c10dd46514db2fd34f7bd5c7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &426733417
@@ -1616,19 +1703,6 @@ MonoBehaviour:
   - {fileID: 2759766354225911844, guid: 66b22b3ab9034cd43aec896fcef2dae1, type: 3}
   - {fileID: 2759766354225911844, guid: f31cf576ff9d8d4439216f5271f14330, type: 3}
   - {fileID: 2759766354225911844, guid: 92d98a309c832024ba996a83c8868431, type: 3}
-  HealthUpgrades:
-  - Name: HP+
-    Price: 250
-    Owned: 0
-    UpgradeID: 0
-  - Name: HP+
-    Price: 500
-    Owned: 0
-    UpgradeID: 1
-  - Name: HP+
-    Price: 750
-    Owned: 0
-    UpgradeID: 2
   AllProjectiles:
   - {fileID: 6707723527685630381, guid: 7271c1515a8049942b3a1fba1640004a, type: 3}
   Coin: {fileID: 2547583514355619435, guid: 839461a7d85730846be6b6d2ebf99f44, type: 3}
@@ -2829,6 +2903,7 @@ SceneRoots:
   - {fileID: 706349770}
   - {fileID: 1424082381}
   - {fileID: 39207841}
+  - {fileID: 245559719}
   - {fileID: 112742361}
   - {fileID: 681043925}
   - {fileID: 426733419}

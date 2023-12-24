@@ -2,103 +2,47 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ShopItemType
-{
-    Weapon,
-    HealthUpgrade
-}
 namespace Selivura
 {
-    public class Shop : MonoBehaviour
+    public class Shop : MonoBehaviour, IShop
     {
-        [SerializeField] List<WeaponItem> _weapons = new List<WeaponItem>();
-        [SerializeField] List<HealthUpgrade> _upgrades =new List<HealthUpgrade> {  new HealthUpgrade("Health up", 250, 0), new HealthUpgrade("Health up", 250, 0), new HealthUpgrade("Health up", 250, 0) };
-        SaveManager _saveManager;
-        Database _database;
-        CombatHandler _combat;
-        public HealthUpgrade[] Upgrades { get { return _upgrades.ToArray(); } }
-        public WeaponItem[] Weapons { get { return _weapons.ToArray(); } }
-        private void Awake()
+        [SerializeField] List<ShopItem> _items = new List<ShopItem>();
+        public ShopItem[] Items { get { return _items.ToArray(); } }
+       
+        public void SetItems(ShopItem[] items)
         {
-            _combat = FindAnyObjectByType<CombatHandler>();
-            _database = FindAnyObjectByType<Database>();
-            _saveManager = FindAnyObjectByType<SaveManager>();
-            _saveManager.OnSaveChanged += Refresh;
-
-        }
-        private void Start()
-        {
-            Refresh();
-        }
-        private void OnDestroy()
-        {
-            _saveManager.OnSaveChanged -= Refresh;
-        }
-        public void Refresh()
-        {
-            _weapons.Clear();
-            _upgrades.Clear();
-            for (int i = 0; i < _database.AllWeapons.Length; i++)
+            _items.Clear();
+            Debug.Log("Items to sell:");
+            for (int i = 0; i < items.Length; i++)
             {
-                var weapon = _database.AllWeapons[i];
-                var weaponItem = new WeaponItem(weapon.Data.Name, weapon.Data.Price, weapon.Data.WeaponID);
-                weaponItem.Owned = _saveManager.GetWeaponUnlocks()[weapon.Data.WeaponID];
-                _weapons.Add(weaponItem);
-                Debug.Log($"Weapon: {weaponItem.WeaponID} | {weaponItem.Name} | Owned: {weaponItem.Owned}");
-            }
-            for (int i = 0; i < _database.HealthUpgrades.Count; i++)
-            {
-                var upgrade = _database.HealthUpgrades[i];
-                upgrade.Owned = _saveManager.GetHealthUpgrades()[i];
-                _upgrades.Add(upgrade);
-                Debug.Log($"Upgrade: {upgrade.UpgradeID} | {upgrade.Name} | Owned: {upgrade.Owned}");
+                var item = items[i];
+                _items.Add(item);
+                Debug.Log($"{item.Name}");
             }
         }
-        public bool CheckIfWeaponEquipped(int weaponID)
+        public bool Buy(int index, int money)
         {
-            return _combat.CheckIfWeaponEquipped(weaponID);
-        }
-        public void EquipWeapon(int index)
-        {
-            if(!_combat.CheckIfWeaponEquipped(_weapons[index].WeaponID))
-                _combat.SetWeapon(_database.AllWeapons[_weapons[index].WeaponID]);
-            Refresh();
-        }
-        public bool BuyWeapon(int index)
-        {
-            if (_weapons[index].Owned)
-                return false;
-            if (_saveManager.GetCurrentMoney() >= _weapons[index].Price)
+            if (money >= _items[index].Price)
             {
-                _weapons[index].Buy();
-                _weapons[index].Owned = true;
-                _saveManager.ChangeMoney(-_weapons[index].Price);
-                return true;
-            }
-            else
-                return false;
-        }
-        public bool BuyUpgrade(int index)
-        {
-            if (_upgrades[index].Owned)
-                return false;
-            if (_saveManager.GetCurrentMoney() >= _upgrades[index].Price)
-            {
-                _upgrades[index].Buy();
-                _upgrades[index].Owned = true;
-                _saveManager.ChangeMoney(-_upgrades[index].Price);
+                _items[index].Buy();
+                _items.RemoveAt(index);
                 return true;
             }
             else
                 return false;
         }
     }
+    public interface IShop
+    {
+        public ShopItem[] Items { get; }
+        public void SetItems(ShopItem[] items);
+        public bool Buy(int index, int money);
+    }
     [Serializable]
     public abstract class ShopItem
     {
         public string Name = "Item name";
         public int Price = 0;
-        public bool Owned = false;
         public ShopItem(string name, int cost)
         {
             Name = name;

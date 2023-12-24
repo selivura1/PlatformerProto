@@ -1,21 +1,22 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace Selivura
 {
-    public class ShopUI : MonoBehaviour
+    public class EquipmentUI : MonoBehaviour
     {
         [SerializeField] LevelInfoDisplay _infoDisplayPrefab;
         [SerializeField] Transform _holder;
-        IShop _shop;
+        EquipmentManager _equipment;
         SaveManager _saveManager;
+        Database _database;
         private List<LevelInfoDisplay> _displaysSpawned = new List<LevelInfoDisplay>();
         private void Awake()
         {
-            _shop = FindAnyObjectByType<Shop>(); // не дает найти по интерфейсу((
+            _database = FindAnyObjectByType<Database>();
+            _equipment = FindAnyObjectByType<EquipmentManager>();
             _saveManager = FindAnyObjectByType<SaveManager>();
-            _saveManager.OnSaveChanged += Refresh;
         }
         private void OnEnable()
         {
@@ -35,32 +36,32 @@ namespace Selivura
         }
         public void Refresh()
         {
+            _equipment.UpdateAvailableEquipment(_database.EquippableWeapons);
             ClearList(_displaysSpawned);
-            for (int i = 0; i < _shop.Items.Length; i++)
+            for (int i = 0; i < _equipment.Weapons.Count; i++)
             {
-                var item = _shop.Items[i];
+                var item = _equipment.Weapons[i];
                 var spawned = Instantiate(_infoDisplayPrefab, _holder);
-                int itemID = i;
 
-                spawned.SetInformation(item.Name, item.Price.ToString());
-
-                if (_saveManager.GetCurrentMoney() >= item.Price)
+                if (item == _equipment.EquippedWeapon)
                 {
-                    spawned.Button.onClick.AddListener(delegate { Buy(itemID); });
+                    spawned.SetInformation(item.Data.Name, "EQUIPPED");
+                    spawned.Button.interactable = false;
                 }
                 else
                 {
-                    spawned.Button.interactable = false;
+                    int weaponID = i;
+                    spawned.SetInformation(item.Data.Name, item.Data.Name);
+                    spawned.Button.onClick.AddListener(delegate { Equip(weaponID); });
                 }
                 _displaysSpawned.Add(spawned);
             }
         }
-       
-        private bool Buy(int itemID)
+        private bool Equip(int weaponID)
         {
-            if(_shop.Buy(itemID, _saveManager.GetCurrentMoney()))
+            _equipment.UpdateAvailableEquipment(_database.EquippableWeapons);
+            if (_equipment.EquipWeapon(weaponID))
             {
-                _saveManager.ChangeMoney(-_shop.Items[itemID].Price);
                 Refresh();
                 return true;
             }

@@ -73,10 +73,18 @@ namespace Selivura
             if (Attack)
             {
                 if (_isGamepad)
-                    _combat.CurrentWeapon.Attack(Controls.Game.Aim.ReadValue<Vector2>());
+                {
+                    if (_combat.CurrentWeapon != null)
+                    {
+                        _combat.CurrentWeapon.Attack(Controls.Game.Aim.ReadValue<Vector2>());
+                    }
+                }
                 else
                 {
-                    _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+                    if (_combat.CurrentWeapon != null)
+                    {
+                        _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+                    }
                 }
             }
         }

@@ -14,6 +14,7 @@ public class PlayerTests
     {
         yield return SceneManager.LoadSceneAsync(0);
         var player = GameObject.FindAnyObjectByType<Player>();
+        yield return new WaitForSeconds(1);
         player.TakeDamage(player.MaxHealth / 2);
         Assert.AreEqual(player.MaxHealth / 2, player.Health);
     }
@@ -22,6 +23,7 @@ public class PlayerTests
     {
         yield return SceneManager.LoadSceneAsync(0);
         var player = GameObject.FindAnyObjectByType<Player>();
+        yield return new WaitForSeconds(1);
         player.TakeDamage(player.MaxHealth);
         Assert.AreEqual(0, player.Health);
         Assert.AreEqual(false, player.gameObject.activeSelf);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Selivura
@@ -16,7 +17,7 @@ namespace Selivura
         {
             _saveManager = FindAnyObjectByType<SaveManager>();
             _levelLoader = FindAnyObjectByType<LevelLoader>();
-            _currentData = _saveManager.GetLevelsProgress()[_levelLoader.CurrentLevelIndex];
+            _currentData = _saveManager.GetLevelsProgress(_levelLoader.CurrentLevelIndex);
             //for (int i = 0; i < _currentData.CollectiblesEarned.Length; i++)
             //{
             //    _collectibles[i].Collected = _currentData.CollectiblesEarned[i];
@@ -27,18 +28,12 @@ namespace Selivura
             //        collectible.gameObject.SetActive(false);
             //}
         }
-        public void CancelLevel()
+        public void Quit(bool win)
         {
-            // bool[] collectibles = CountCollectibles();
-            // DebugMissionResult(collectibles, _currentData.Completed);
-            _saveManager.SaveLevelData(new LevelProgressData(_currentData.Completed), _levelLoader.CurrentLevelIndex);
-            _levelLoader.LoadMainMenu();
-        }
-        public void CompleteLevel()
-        {
-            //bool[] collectibles = CountCollectibles();
-            _saveManager.SaveLevelData(new LevelProgressData(true), _levelLoader.CurrentLevelIndex);
-          //  DebugMissionResult(collectibles, true);
+            LevelProgressData data = new LevelProgressData(_saveManager.GetLevelsProgress(_levelLoader.CurrentLevelIndex).Completed, _saveManager.GetLevelsProgress(_levelLoader.CurrentLevelIndex).Unlocked);
+            if (win)
+                data = new LevelProgressData(true, true);
+            _saveManager.SaveLevelData(data, _levelLoader.CurrentLevelIndex);
             _levelLoader.LoadMainMenu();
         }
 
@@ -66,10 +61,12 @@ namespace Selivura
     [Serializable]
     public class LevelProgressData
     {
+        public bool Unlocked = false;
         public bool Completed = false;
 
-        public LevelProgressData(bool completed)
+        public LevelProgressData(bool completed, bool unlocked)
         {
+            Unlocked = unlocked;
             Completed = completed;
         }
     }
