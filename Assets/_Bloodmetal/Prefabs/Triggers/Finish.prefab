@@ -91,3 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7889b5b9cfa07a498e549640944b8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggeredByPlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggeredByDamageable:
+    m_PersistentCalls:
+      m_Calls: []

@@ -6,6 +6,9 @@ namespace Selivura
 {
     public class CombatHandler : MonoBehaviour
     {
+        public bool AllowRangedAttack = true;
+        public bool AllowMeleeAttack = true;
+
         [SerializeField] CheckBox _meleeHitbox = new CheckBox(Vector2.one, Vector2.zero);
         [SerializeField] LayerMask _attackableMask;
         [SerializeField] float _meleeAttackDamage = 1;
@@ -49,7 +52,8 @@ namespace Selivura
         }
         public void MeleeAttack()
         {
-           StartCoroutine(AttackMeleeRoutine());
+            if (AllowMeleeAttack)
+                StartCoroutine(AttackMeleeRoutine());
         }
         IEnumerator AttackMeleeRoutine()
         {

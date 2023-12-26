@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Windows;
+using UnityEngine.Events;
 
 namespace Selivura
 {
-    public class Enemy : MonoBehaviour, IDamageable, IPunchable
+    public class Enemy : MonoBehaviour, IDamageable, IPunchable, IKillable
     {
         [SerializeField] private float _currentHealth = 100;
         [SerializeField] private float _maxHealth = 100;
@@ -15,6 +12,8 @@ namespace Selivura
         private Rigidbody2D _rb;
         public float RandomMovementRange = 5;
         public float MovementSpeed = 5;
+        public UnityEvent OnKilled { get; set; } = new UnityEvent();
+
         private void Awake()
         {
             _currentHealth = _maxHealth;
@@ -30,7 +29,7 @@ namespace Selivura
             if (_currentHealth <= 0)
             {
                 FindAnyObjectByType<ComboCounter>().IncreaseCombo(1);
-                Destroy(gameObject);
+                Death();
             }
         }
         public void Move(Vector2 direction, float speed)
@@ -47,14 +46,25 @@ namespace Selivura
         {
             _rb.AddForce(direction, ForceMode2D.Impulse);
         }
+        public void Death()
+        {
+            OnKilled?.Invoke();
+            Destroy(gameObject);
+        }
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if(collision.gameObject.TryGetComponent(out IDamageable victim))
+            if (collision.gameObject.TryGetComponent(out IDamageable victim))
             {
                 if (_attackTimer > 0) return;
                 victim.TakeDamage(2);
                 _attackTimer = 1;
             }
         }
+    }
+
+    public interface IKillable
+    {
+        public UnityEvent OnKilled { get; set; }
+        public void Death();
     }
 }

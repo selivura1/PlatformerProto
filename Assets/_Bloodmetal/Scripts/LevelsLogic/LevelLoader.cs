@@ -19,7 +19,7 @@ namespace Selivura
         }
         public async Awaitable RestartCurrentLevel()
         {
-           await LoadLevel(CurrentLevelIndex);
+            await LoadLevel(CurrentLevelIndex);
         }
         public async Awaitable LoadLevel(int levelInLoader)
         {
@@ -38,7 +38,7 @@ namespace Selivura
 
             CurrentLevelIndex = MAIN_MENU_LEVELID;
             await SceneManager.LoadSceneAsync(MAIN_MENU_SCENEID, LoadSceneMode.Additive);
-            
+
             OnLevelLoaded?.Invoke(MAIN_MENU_LEVELID);
         }
 
@@ -71,7 +71,7 @@ namespace Selivura
             {
                 LoadMainMenu();
             }
-            if(Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 RestartCurrentLevel();
             }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -30,7 +28,7 @@ namespace Selivura
         {
             _text.text = "x" + combo + " " + ConvertRankToString(_comboCounter.CurrentRank);
         }
-       public static string ConvertRankToString(Rank rank)
+        public static string ConvertRankToString(Rank rank)
         {
             switch (rank)//Придумать другие
             {
@@ -47,7 +45,7 @@ namespace Selivura
                 case Rank.S:
                     return "Suprimal";
                 case Rank.SS:
-                    return "SSand"; 
+                    return "SSand";
                 case Rank.SSS:
                     return "SSSnake";
                 default:

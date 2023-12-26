@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Selivura
@@ -29,7 +27,7 @@ namespace Selivura
         public Vector2 GroundCheckPosition = new Vector2(0, -0.95f);
         public float GroundCheckRadius = 0.1f;
         public float WallJumpTime = 0.25f;
-        public Vector2 WallJumpDirection = new Vector2(10,5);
+        public Vector2 WallJumpDirection = new Vector2(10, 5);
         public WallCheckBox RightWallCheck = new WallCheckBox(new Vector2(0.1f, 1.2f), new Vector2(0.25f, -0.25f));
         public WallCheckBox LeftWallCheck = new WallCheckBox(new Vector2(0.1f, 1.2f), new Vector2(-0.25f, -0.25f));
 

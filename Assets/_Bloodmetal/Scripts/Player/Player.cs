@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 namespace Selivura
 {
-    public class Player : MonoBehaviour, IDamageable
+    public class Player : MonoBehaviour, IDamageable, IKillable
     {
         public int Score { get; private set; }
         public float Health { get; private set; } = 12;
-        public float MaxHealth { get { return _baseHealth + AdditiveHealth; }}
+        public float MaxHealth { get { return _baseHealth + AdditiveHealth; } }
+
+        public UnityEvent OnKilled { get; set; } = new UnityEvent();
 
         [SerializeField] float _baseHealth = 10;
         public float AdditiveHealth = 0;
@@ -37,8 +37,7 @@ namespace Selivura
             Health -= amount;
             if (Health <= 0)
             {
-                Invoke(nameof(Respawn), 3);
-                gameObject.SetActive(false);
+                Death();
             }
         }
         public void SetCheckpoint(Checkpoint checkpoint)
@@ -47,7 +46,7 @@ namespace Selivura
         }
         public void Respawn()
         {
-            if(!_movement)
+            if (!_movement)
                 _movement = GetComponent<PlayerMovement>();
             gameObject.SetActive(true);
             _movement.StopMoving();
@@ -55,7 +54,6 @@ namespace Selivura
             if (_checkpoint != null)
             {
                 transform.position = _checkpoint.transform.position;
-                _checkpoint.RespawnEnemies();
                 OnPlayerRespawn?.Invoke();
             }
             else
@@ -70,10 +68,17 @@ namespace Selivura
         }
         public void Update()
         {
-            if(Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 Respawn();
             }
+        }
+
+        public void Death()
+        {
+            OnKilled?.Invoke();
+            Invoke(nameof(Respawn), 3);
+            gameObject.SetActive(false);
         }
     }
 }

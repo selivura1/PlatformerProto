@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Selivura
@@ -36,7 +33,7 @@ namespace Selivura
             }
             _rb.velocity = transform.right * _speed;
             _lifetimeTimer -= Time.fixedDeltaTime;
-            if(_lifetimeTimer < 0 )
+            if (_lifetimeTimer < 0)
             {
                 Deinitialize();
             }

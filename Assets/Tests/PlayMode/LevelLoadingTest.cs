@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Selivura;
 using NUnit.Framework;
+using Selivura;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;

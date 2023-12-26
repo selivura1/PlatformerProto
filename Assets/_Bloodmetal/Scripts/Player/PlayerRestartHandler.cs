@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Selivura
@@ -15,6 +13,17 @@ namespace Selivura
 
             _player = GetComponent<Player>();
             _player.OnPlayerRestart += () => _levelLoader.RestartCurrentLevel();
+            _player.OnPlayerRespawn += OnPlayrRespawn;
+        }
+        private void OnDisable()
+        {
+            _levelLoader.OnLevelLoaded -= OnLevelLoaded;
+            _player.OnPlayerRestart -= () => _levelLoader.RestartCurrentLevel();
+            _player.OnPlayerRespawn -= OnPlayrRespawn;
+        }
+        private void OnPlayrRespawn()
+        {
+            FindAnyObjectByType<ComboCounter>().ResetCombo();
         }
         private void OnLevelLoaded(int level)
         {
@@ -22,7 +31,7 @@ namespace Selivura
             var equipment = FindAnyObjectByType<EquipmentManager>();
             equipment.UpdateAvailableEquipment(FindAnyObjectByType<Database>().EquippableWeapons);
             equipment.EquipWeapon(FindAnyObjectByType<SaveManager>().GetLastEquippedWeapon());
-            GetComponent<CombatHandler>().SetWeapon(equipment.EquippedWeapon); 
+            GetComponent<CombatHandler>().SetWeapon(equipment.EquippedWeapon);
 
             _player.transform.position = Vector3.zero;
             playerInputHandler.EnableControls = true;

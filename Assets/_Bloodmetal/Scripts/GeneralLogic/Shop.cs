@@ -8,7 +8,7 @@ namespace Selivura
     {
         [SerializeField] List<ShopItem> _items = new List<ShopItem>();
         public ShopItem[] Items { get { return _items.ToArray(); } }
-       
+
         public void SetItems(ShopItem[] items)
         {
             _items.Clear();

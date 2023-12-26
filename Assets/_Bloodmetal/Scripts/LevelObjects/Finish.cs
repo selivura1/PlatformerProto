@@ -5,11 +5,16 @@ namespace Selivura
 {
     public class Finish : Trigger
     {
-        protected override void OnTriggered(Player player)
+        private float _startTime;
+        private void Start()
         {
-            Debug.Log("WIN");
+            _startTime = Time.time;
+        }
+        protected override void OnTriggeredPlayer(Player player)
+        {
+            Debug.Log("WIN " + (Time.time - _startTime).ToString("F2"));
             player.GetComponent<PlayerInputHandler>().enabled = false;
-            Invoke(nameof(Restart), 3);
+            //Invoke(nameof(Restart), 3);
         }
         private void Restart()
         {

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 namespace Selivura
 {
@@ -81,7 +80,7 @@ namespace Selivura
                 }
                 else
                 {
-                    if (_combat.CurrentWeapon != null)
+                    if (_combat.CurrentWeapon != null && _combat.AllowRangedAttack)
                     {
                         _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
                     }

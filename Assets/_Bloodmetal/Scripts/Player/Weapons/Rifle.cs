@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Selivura
@@ -53,11 +50,11 @@ namespace Selivura
             spawned.transform.position = transform.position;
             spawned.transform.right = direction;
             spawned.Initialize();
-           // _dashProjectiles.Add(spawned);
+            // _dashProjectiles.Add(spawned);
         }
         public override void AfterAttackLogic()
         {
-            
+
         }
     }
 }

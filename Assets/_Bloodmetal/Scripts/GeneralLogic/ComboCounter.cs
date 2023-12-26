@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Selivura
@@ -20,8 +18,8 @@ namespace Selivura
         public int Combo { get; private set; }
         [SerializeField] float _comboReset = 5;
         private float _comboResetTimer;
-        public Rank CurrentRank 
-        { 
+        public Rank CurrentRank
+        {
             get
             {
                 switch (Combo)
@@ -43,7 +41,7 @@ namespace Selivura
                     default:
                         return Rank.None;
                 }
-            } 
+            }
         }
         public delegate void ComboChangeHandler(int combo);
         public event ComboChangeHandler OnComboIncreased;
@@ -55,6 +53,11 @@ namespace Selivura
             _comboResetTimer = _comboReset;
             OnComboIncreased?.Invoke(Combo);
         }
+        public void ResetCombo()
+        {
+            Combo = 0;
+            OnComboReset?.Invoke(Combo);
+        }
         private void FixedUpdate()
         {
             if (Combo > 0)
@@ -62,8 +65,7 @@ namespace Selivura
                 _comboResetTimer -= Time.fixedDeltaTime;
                 if (_comboResetTimer < 0)
                 {
-                    Combo = 0;
-                    OnComboReset?.Invoke(Combo);
+                    ResetCombo();
                 }
             }
         }

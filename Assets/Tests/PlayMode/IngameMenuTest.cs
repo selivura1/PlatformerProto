@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.TestTools;
-using Selivura;
-using UnityEngine.SceneManagement;
 using NUnit.Framework;
+using Selivura;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 public class IngameMenuTest
 {
@@ -15,7 +14,7 @@ public class IngameMenuTest
         var menu = GameObject.FindAnyObjectByType<IngameMenuUI>();
         var levelLoader = GameObject.FindAnyObjectByType<LevelLoader>();
         yield return levelLoader.LoadMainMenu();
-        if(menu.OpenMenu())
+        if (menu.OpenMenu())
         {
             Assert.Fail();
         }

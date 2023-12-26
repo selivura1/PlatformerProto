@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Selivura
@@ -12,7 +10,7 @@ namespace Selivura
     }
     public abstract class Weapon : MonoBehaviour
     {
-        [SerializeField]protected WeaponData data;
+        [SerializeField] protected WeaponData data;
         public WeaponData Data { get { return data; } }
         protected Player player;
         protected ProjectilePool projectilePool;

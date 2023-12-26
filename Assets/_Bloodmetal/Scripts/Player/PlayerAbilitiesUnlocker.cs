@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Selivura
 {
@@ -35,7 +32,7 @@ namespace Selivura
             {
                 if (unlock)
                 {
-                    _player.AdditiveHealth += Player.HEALTH_UPGRADE_AMOUNT;
+                    _player.AdditiveHealth += UPGRADE_HEALTH_AMOUNT;
                 }
             }
         }

@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.WebSockets;
-using Selivura;
 using NUnit.Framework;
+using Selivura;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using UnityEngine.UIElements;
 public class PlayerTests
 {
     [UnityTest]

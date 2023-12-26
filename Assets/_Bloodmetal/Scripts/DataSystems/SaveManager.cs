@@ -1,9 +1,4 @@
-using NUnit.Framework.Internal;
-using Selivura;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace Selivura
@@ -39,7 +34,7 @@ namespace Selivura
                 Debug.Log($"No level {levelID} save found. Creating new data...");
                 bool unlocked = levelID == 0;
                 var newData = new LevelProgressData(false, unlocked);
-                if(EnableSaveWriting)
+                if (EnableSaveWriting)
                     SaveLevelData(newData, levelID);
                 else
                     Debug.Log("Save writing disabled.");
@@ -55,7 +50,7 @@ namespace Selivura
         {
             try
             {
-                LoadSave(_dataService.LoadData<SaveFile>(path)); 
+                LoadSave(_dataService.LoadData<SaveFile>(path));
             }
             catch
             {
@@ -69,7 +64,7 @@ namespace Selivura
         }
         private void WriteSave()
         {
-            if(EnableSaveWriting)
+            if (EnableSaveWriting)
                 _dataService.SaveData(SAVE_RELATIVE_PATH, _save);
             else
                 Debug.Log("Save writing disabled.");

@@ -1,8 +1,6 @@
 using NUnit.Framework;
 using Selivura;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -31,7 +29,7 @@ public class SavingTest
             Assert.Pass();
         else
             Assert.Fail();
-    } 
+    }
     [UnityTest]
     public IEnumerator LevelCancelProgressSaveTest()
     {
@@ -103,7 +101,7 @@ public class SavingTest
             Assert.Fail();
         else
             Assert.Pass();
-        
+
     }
     [UnityTest]
     public IEnumerator EquipmentUnlockedWeaponEquipTest()
@@ -121,7 +119,7 @@ public class SavingTest
             Assert.Fail();
     }
     [UnityTest]
-    public IEnumerator DashUnlockTest() 
+    public IEnumerator DashUnlockTest()
     {
         yield return SceneManager.LoadSceneAsync(0);
         var saveManager = CreateTestSaveEnvironment();

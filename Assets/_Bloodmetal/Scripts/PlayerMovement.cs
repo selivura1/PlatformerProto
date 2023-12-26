@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Selivura
@@ -110,7 +106,7 @@ namespace Selivura
                 IsWallJumping = false;
                 _jumpInputReleased = false;
             }
-            else if(CanWallJump())
+            else if (CanWallJump())
             {
                 _rb.velocity = Vector2.zero;
                 if (_rightWallCheck.IsHanged())
@@ -245,7 +241,7 @@ namespace Selivura
         }
         public bool IsHanged()
         {
-            return LastHangedTime >0;
+            return LastHangedTime > 0;
         }
     }
 }

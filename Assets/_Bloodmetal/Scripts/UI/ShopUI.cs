@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace Selivura
 {
@@ -55,10 +54,10 @@ namespace Selivura
                 _displaysSpawned.Add(spawned);
             }
         }
-       
+
         private bool Buy(int itemID)
         {
-            if(_shop.Buy(itemID, _saveManager.GetCurrentMoney()))
+            if (_shop.Buy(itemID, _saveManager.GetCurrentMoney()))
             {
                 _saveManager.ChangeMoney(-_shop.Items[itemID].Price);
                 Refresh();

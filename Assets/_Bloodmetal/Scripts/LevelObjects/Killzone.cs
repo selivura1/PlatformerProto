@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Selivura
 {
     public class Killzone : Trigger
     {
-        protected override void OnTriggered(Player player)
+        protected override void OnTriggeredDamageable(IDamageable damageable)
         {
-            player.TakeDamage(99999);
+            damageable.TakeDamage(99999);
         }
     }
 }

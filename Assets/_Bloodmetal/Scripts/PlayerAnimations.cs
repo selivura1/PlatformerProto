@@ -8,7 +8,7 @@ namespace Selivura
         PlayerMovement _movement;
         Animator _anim;
         [SerializeField] private string _horizontalMovementParamName = "Move";
-        [SerializeField] private string[] _meleeAttacks = { "Melee_1", "Melee_2"};
+        [SerializeField] private string[] _meleeAttacks = { "Melee_1", "Melee_2" };
         void Awake()
         {
             _anim = GetComponent<Animator>();
@@ -22,7 +22,7 @@ namespace Selivura
         }
         private void FixedUpdate()
         {
-            if(_movement.LastGroundedTime > 0 && !_movement.IsJumping && !_movement.IsWallJumping)
+            if (_movement.LastGroundedTime > 0 && !_movement.IsJumping && !_movement.IsWallJumping)
                 _anim.SetFloat(_horizontalMovementParamName, Mathf.Abs(_movement.GetCurrentMovementSpeed().x));
         }
         void PlayMeleeAttackAnimation()

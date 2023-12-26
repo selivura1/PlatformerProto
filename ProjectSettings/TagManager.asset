@@ -18,8 +18,8 @@ TagManager:
   - EnemyProjectile
   - Trigger
   - ShootTrigger
-  - 
-  - 
+  - Checkpoint
+  - EnemyTrigger
   - 
   - 
   - 
