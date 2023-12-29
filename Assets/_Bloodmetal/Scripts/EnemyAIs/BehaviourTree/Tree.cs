@@ -9,7 +9,7 @@ namespace BehaviorTree
         {
             _root = SetupTree();
         }
-        protected void Update()
+        protected void FixedUpdate()
         {
             if (_root != null)
             {

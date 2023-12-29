@@ -13,6 +13,7 @@ namespace Selivura
         public event LevelLoadedHandler OnLevelLoaded;
         public const int MAIN_MENU_SCENEID = 1;
         public const int MAIN_MENU_LEVELID = -1;
+        public const string TEST_LEVEL_NAME = "Level_Test";
         private void Awake()
         {
             LoadMainMenu();
@@ -59,13 +60,20 @@ namespace Selivura
         {
             Application.Quit();
         }
+        private void LoadTestLevel()
+        {
+            UnloadCurrentLevel();
+            SceneManager.LoadSceneAsync(TEST_LEVEL_NAME,LoadSceneMode.Additive);
+            Debug.Log("Test level loaded");
+            OnLevelLoaded?.Invoke(-3);
+        }
 
 #if UNITY_EDITOR
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                LoadLevel(0);
+                LoadTestLevel();
             }
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {

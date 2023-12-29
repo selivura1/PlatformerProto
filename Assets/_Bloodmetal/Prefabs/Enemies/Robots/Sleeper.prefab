@@ -98,9 +98,8 @@ GameObject:
   - component: {fileID: 1115961430963146511}
   - component: {fileID: 8368522685652400259}
   - component: {fileID: 4541219981402335067}
-  - component: {fileID: 8829775781899212603}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Sleeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,11 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2d073026b1c1840bd8bd7b0438ce4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 3
-  _maxHealth: 3
+  _currentHealth: 2
+  _maxHealth: 2
   _attackCD: 1
-  RandomMovementRange: 5
-  MovementSpeed: 5
 --- !u!50 &8368522685652400259
 Rigidbody2D:
   serializedVersion: 4
@@ -212,20 +209,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8829775781899212603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7925424840689188789}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97006f3bef91ef949a473704772823aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

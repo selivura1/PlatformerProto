@@ -5,9 +5,9 @@ namespace Selivura
 {
     public class EnemySpawnPoint : MonoBehaviour
     {
-        [SerializeField] Enemy _enemy;
-        private Enemy _spawned;
-        private Player _player;
+        [SerializeField] private Enemy _enemy;
+        protected Enemy spawned;
+        protected Player _player;
         public UnityEvent OnEnemyCleared;
         private void Awake()
         {
@@ -20,15 +20,15 @@ namespace Selivura
         }
         private void Despawn()
         {
-            if (_spawned != null)
+            if (spawned != null)
             {
-                Destroy(_spawned.gameObject);
+                Destroy(spawned.gameObject);
             }
         }
-        public void Spawn()
+        public virtual void Spawn()
         {
-            _spawned = Instantiate(_enemy, transform);
-            _spawned.OnKilled.AddListener(() => OnEnemyCleared?.Invoke());
+            spawned = Instantiate(_enemy, transform);
+            spawned.OnKilled.AddListener(() => OnEnemyCleared?.Invoke());
         }
     }
 }

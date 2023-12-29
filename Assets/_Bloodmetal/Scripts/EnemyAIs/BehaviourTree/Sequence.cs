@@ -15,16 +15,15 @@ namespace BehaviorTree
                 {
                     case NodeState.Failure:
                         state = NodeState.Failure;
-                        break;
+                        return state;
                     case NodeState.Succes:
-                        state = NodeState.Succes;
-                        break;
+                        continue;
                     case NodeState.Running:
                         anyChildIsRunning = true;
                         continue;
                     default:
                         state = NodeState.Succes;
-                        break;
+                        return state;
                 }
             }
             state = anyChildIsRunning ? NodeState.Running : NodeState.Succes;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,8 +11,6 @@ namespace Selivura
         [SerializeField] float _attackCD = 1;
         float _attackTimer = 0;
         private Rigidbody2D _rb;
-        public float RandomMovementRange = 5;
-        public float MovementSpeed = 5;
         public UnityEvent OnKilled { get; set; } = new UnityEvent();
 
         private void Awake()
@@ -59,6 +58,11 @@ namespace Selivura
                 victim.TakeDamage(2);
                 _attackTimer = 1;
             }
+        }
+
+        public void StopMoving()
+        {
+            _rb.velocity = Vector2.zero;
         }
     }
 
