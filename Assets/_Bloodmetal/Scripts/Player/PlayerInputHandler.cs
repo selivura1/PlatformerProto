@@ -56,7 +56,7 @@ namespace Selivura
 
             if (Controls.Game.Dash.WasPerformedThisFrame())
                 _movement.Dash(Mathf.RoundToInt(DirectionInput.x));
-            if (Controls.Game.Jump.IsPressed())
+            if (Controls.Game.Jump.WasPressedThisFrame()) //Не менять на IsPressed(), пожалеешь
             {
                 _movement.InputJump();
             }

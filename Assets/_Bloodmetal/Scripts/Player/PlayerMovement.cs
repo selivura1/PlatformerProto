@@ -86,10 +86,7 @@ namespace Selivura
         public void ReleaseJump()
         {
             if (_jumpInputReleased) return;
-            if (_rb.velocity.y > 0 && IsJumping)
-            {
-                _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _data.JumpCutMultiplier), ForceMode2D.Impulse);
-            }
+            _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _data.JumpCutMultiplier), ForceMode2D.Impulse);
             IsJumping = false;
             _jumpInputReleased = true;
             _lastJumpInputTime = 0;
@@ -99,6 +96,7 @@ namespace Selivura
             _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _data.JumpStopMultiplier), ForceMode2D.Impulse);
             _jumpInputReleased = true;
             _lastJumpInputTime = 0;
+            IsJumping = false;
         }
         public void Jump()
         {
