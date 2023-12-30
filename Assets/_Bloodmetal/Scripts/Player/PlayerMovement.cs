@@ -13,10 +13,11 @@ namespace Selivura
         public bool IsWallJumping { get; private set; } = false;
         public bool IsDashing { get; private set; } = false;
         private bool _jumpInputReleased = true;
-        private float _wallJumpStartTime;
+        private float _wallJumpTime;
         private float _lastWallHangedTime;
         private float _dashCooldownTime = 0;
         private float _dashTime = 0;
+        private float _jumpTimer = 0;
         private WallCheckBox _rightWallCheck;
         private WallCheckBox _leftWallCheck;
         private PlayerDirection _playerDirection;
@@ -54,7 +55,7 @@ namespace Selivura
         {
             if (!AllowDash)
                 return;
-            if (_dashCooldownTime > 0 || LastGroundedTime > 0 || _dashTime > 0 || IsWallJumping || LockMovement)
+            if (_dashCooldownTime > 0 || LastGroundedTime > 0 || _dashTime > 0 || LockMovement)
                 return;
             if (input == 0)
                 input = Mathf.RoundToInt(_playerDirection.Direction.x);
@@ -89,6 +90,13 @@ namespace Selivura
             {
                 _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _data.JumpCutMultiplier), ForceMode2D.Impulse);
             }
+            IsJumping = false;
+            _jumpInputReleased = true;
+            _lastJumpInputTime = 0;
+        }
+        public void StopJump()
+        {
+            _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _data.JumpStopMultiplier), ForceMode2D.Impulse);
             _jumpInputReleased = true;
             _lastJumpInputTime = 0;
         }
@@ -98,10 +106,10 @@ namespace Selivura
             {
                 _lastJumpInputTime = 0;
                 float force = _data.JumpForce;
-                if (_rb.velocity.y < 0)
-                    force -= _rb.velocity.y;
+                _rb.velocity.Set(_rb.velocityX, 0);
                 _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
                 LastGroundedTime = 0;
+                _jumpTimer = _data.MaxJumpTime;
                 IsJumping = true;
                 IsWallJumping = false;
                 _jumpInputReleased = false;
@@ -117,7 +125,7 @@ namespace Selivura
                 {
                     _rb.AddForce(new Vector2(_data.WallJumpDirection.x, _data.WallJumpDirection.y), ForceMode2D.Impulse);
                 }
-                _wallJumpStartTime = Time.fixedTime;
+                _wallJumpTime = _data.WallJumpTime;
                 IsWallJumping = true;
                 IsJumping = false;
             }
@@ -131,6 +139,8 @@ namespace Selivura
             _rightWallCheck.LastHangedTime -= Time.fixedDeltaTime;
             _dashCooldownTime -= Time.fixedDeltaTime;
             _dashTime -= Time.fixedDeltaTime;
+            _jumpTimer -= Time.fixedDeltaTime;
+            _wallJumpTime -= Time.fixedDeltaTime;
         }
         private void FixedUpdate()
         {
@@ -162,25 +172,33 @@ namespace Selivura
                 _leftWallCheck.LastHangedTime = _data.CoyoteTime;
             }
             _lastWallHangedTime = Mathf.Max(_leftWallCheck.LastHangedTime, _rightWallCheck.LastHangedTime);
-            if (_rightWallCheck.LastHangedTime > 0)
-            {
-                _playerDirection.SetDirection(new Vector2(-1, _playerDirection.Direction.y));
-            }
-            else if (_leftWallCheck.LastHangedTime > 0)
-            {
-                _playerDirection.SetDirection(new Vector2(1, _playerDirection.Direction.y));
-            }
+            //if (_rightWallCheck.LastHangedTime > 0)
+            //{
+            //    _playerDirection.SetDirection(new Vector2(-1, _playerDirection.Direction.y));
+            //}
+            //else if (_leftWallCheck.LastHangedTime > 0)
+            //{
+            //    _playerDirection.SetDirection(new Vector2(1, _playerDirection.Direction.y));
+            //}
         }
 
         private void JumpCheck()
         {
-            if (IsJumping && _rb.velocity.y < 0)
+            if (IsJumping)
             {
-                IsJumping = false;
+                if(_rb.velocity.y <= 0.01)
+                {
+                    IsJumping = false;
+                }
+                if(_jumpTimer <= 0)
+                {
+                    StopJump();
+                }
             }
-            if (IsWallJumping && Time.fixedTime - _wallJumpStartTime > _data.WallJumpTime)
+            if (IsWallJumping && _wallJumpTime < 0)
             {
                 IsWallJumping = false;
+                StopJump();
             }
             if (_lastJumpInputTime > 0)
             {

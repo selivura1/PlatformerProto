@@ -1,3 +1,4 @@
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,14 +10,19 @@ namespace Selivura
         protected Enemy spawned;
         protected Player _player;
         public UnityEvent OnEnemyCleared;
+        public bool SpawnAutomatically = false;
         private void Awake()
         {
             _player = FindAnyObjectByType<Player>();
             _player.OnPlayerRespawn += OnPlayerRespawn;
+            if (SpawnAutomatically)
+                Spawn();
         }
         private void OnPlayerRespawn()
         {
             Despawn();
+            if (SpawnAutomatically)
+                Spawn();
         }
         private void Despawn()
         {

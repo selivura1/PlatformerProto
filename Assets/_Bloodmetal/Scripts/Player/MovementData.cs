@@ -12,12 +12,14 @@ namespace Selivura
         public float VelocityPower = 1;
         public float MidAirMovementSpeed = 5;
 
+        public float MaxJumpTime = .5f;
         public float JumpForce = 7; //7 > прыжок в ~2.5 тайла
         public float JumpBufferTime = 0.2f;
         public float GravityScale = 1;
         public float FallGravityMultiplier = 2f;
         public float CoyoteTime = 0.16f;
-        public float JumpCutMultiplier = 1f;
+        public float JumpCutMultiplier = 0.25f;
+        public float JumpStopMultiplier = 0.1f;
         public float DashCooldown = 1;
         public float DashForce = 10;
         public float DashTime = 0.25f;

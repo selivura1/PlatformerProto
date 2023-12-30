@@ -12,21 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f12717274ee52046a48d9f1e04d1888, type: 3}
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
-  Acceleration: 3
-  Deceleration: 3
+  MovementSpeed: 6
+  Acceleration: 6
+  Deceleration: 6
   AirAccelMult: 0.25
   VelocityPower: 1
   MidAirMovementSpeed: 5
-  JumpForce: 7
+  MaxJumpTime: 0.25
+  JumpForce: 12
   JumpBufferTime: 0.2
   GravityScale: 1
   FallGravityMultiplier: 3
   CoyoteTime: 0.16
   JumpCutMultiplier: 0.5
-  DashCooldown: 1
+  JumpStopMultiplier: 0.6
+  DashCooldown: 3
   DashForce: 20
-  DashTime: 0.2
+  DashTime: 0.1
   GroundLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -35,13 +37,13 @@ MonoBehaviour:
     m_Bits: 64
   GroundCheckPosition: {x: 0, y: -0.95}
   GroundCheckRadius: 0.1
-  WallJumpTime: 0.25
-  WallJumpDirection: {x: 5, y: 7}
+  WallJumpTime: 0.4
+  WallJumpDirection: {x: 6, y: 8}
   RightWallCheck:
-    Size: {x: 0.1, y: 1, z: 0}
+    Size: {x: 0.2, y: 1, z: 0}
     Position: {x: 0.25, y: -0.25, z: 0}
     LastHangedTime: 0
   LeftWallCheck:
-    Size: {x: 0.1, y: 1, z: 0}
+    Size: {x: 0.2, y: 1, z: 0}
     Position: {x: -0.25, y: -0.25, z: 0}
     LastHangedTime: 0

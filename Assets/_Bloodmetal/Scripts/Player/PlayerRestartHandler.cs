@@ -12,14 +12,18 @@ namespace Selivura
             _levelLoader.OnLevelLoaded += OnLevelLoaded;
 
             _player = GetComponent<Player>();
-            _player.OnPlayerRestart += () => _levelLoader.RestartCurrentLevel();
+            _player.OnPlayerRestart += RestartLevel;
             _player.OnPlayerRespawn += OnPlayrRespawn;
         }
         private void OnDisable()
         {
             _levelLoader.OnLevelLoaded -= OnLevelLoaded;
-            _player.OnPlayerRestart -= () => _levelLoader.RestartCurrentLevel();
+            _player.OnPlayerRestart -= RestartLevel;
             _player.OnPlayerRespawn -= OnPlayrRespawn;
+        }
+        private void RestartLevel()
+        {
+            _levelLoader.RestartCurrentLevel();
         }
         private void OnPlayrRespawn()
         {
