@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8107887030808649981}
   - component: {fileID: 4128289600966045161}
   - component: {fileID: 2547583514355619435}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,3 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ab18566f0e6304ea67f5f39dd1dc6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTriggeredByPlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggeredByDamageable:
+    m_PersistentCalls:
+      m_Calls: []
+  _disableOnTrigger: 1
+  _points: 1

@@ -24,8 +24,8 @@ MonoBehaviour:
   GravityScale: 1
   FallGravityMultiplier: 3
   CoyoteTime: 0.16
-  JumpCutMultiplier: 0.5
-  JumpStopMultiplier: 0.6
+  JumpCutMultiplier: 0.3
+  JumpStopMultiplier: 0.2
   DashCooldown: 3
   DashForce: 20
   DashTime: 0.1

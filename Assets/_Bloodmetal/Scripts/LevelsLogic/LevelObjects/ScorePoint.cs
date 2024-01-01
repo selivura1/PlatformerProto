@@ -2,15 +2,14 @@ using UnityEngine;
 
 namespace Selivura
 {
-    public class ScorePoint : MonoBehaviour
+    public class ScorePoint : Trigger
     {
-        private void OnTriggerEnter2D(Collider2D collision)
+        [SerializeField] int _points = 1;
+        protected override void OnTriggeredPlayer(Player player)
         {
-            if (collision.gameObject.TryGetComponent(out Player player))
-            {
-                player.AddScore(1);
-                Destroy(gameObject);
-            }
+            base.OnTriggeredPlayer(player); 
+            player.AddScore(_points);
+            gameObject.SetActive(false);
         }
     }
 }

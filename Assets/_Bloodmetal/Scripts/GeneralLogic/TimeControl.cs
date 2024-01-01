@@ -8,8 +8,8 @@ namespace Selivura
     {
         static TimeControl inst;
         public delegate void PauseChangeDelegate();
-        public event PauseChangeDelegate OnPause;
-        public event PauseChangeDelegate OnResume;
+        //public event PauseChangeDelegate OnPause;
+        //public event PauseChangeDelegate OnResume;
         private void Awake()
         {
             if (inst) Destroy(gameObject);

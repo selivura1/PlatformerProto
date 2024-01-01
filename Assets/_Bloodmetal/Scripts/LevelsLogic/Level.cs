@@ -31,7 +31,7 @@ namespace Selivura
             if (win)
                 data = new LevelProgressData(true, true);
             _saveManager.SaveLevelData(data, _levelLoader.CurrentLevelIndex);
-            _levelLoader.LoadMainMenu();
+            _ = _levelLoader.LoadMainMenu();
         }
 
         private static void DebugMissionResult(bool[] collectibles, bool completed = false)

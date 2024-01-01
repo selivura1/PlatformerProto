@@ -23,7 +23,7 @@ namespace Selivura
         }
         private void RestartLevel()
         {
-            _levelLoader.RestartCurrentLevel();
+            _ = _levelLoader.RestartCurrentLevel();
         }
         private void OnPlayrRespawn()
         {

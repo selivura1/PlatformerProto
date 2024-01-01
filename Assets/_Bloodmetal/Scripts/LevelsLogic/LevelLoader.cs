@@ -16,7 +16,7 @@ namespace Selivura
         public const string TEST_LEVEL_NAME = "Level_Test";
         private void Awake()
         {
-            LoadMainMenu();
+            _ = LoadMainMenu();
         }
         public async Awaitable RestartCurrentLevel()
         {
@@ -77,11 +77,11 @@ namespace Selivura
             }
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
-                LoadMainMenu();
+                _ = LoadMainMenu();
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RestartCurrentLevel();
+                _ = RestartCurrentLevel();
             }
         }
     }

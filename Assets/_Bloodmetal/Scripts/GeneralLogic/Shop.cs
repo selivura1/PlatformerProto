@@ -12,12 +12,12 @@ namespace Selivura
         public void SetItems(ShopItem[] items)
         {
             _items.Clear();
-            Debug.Log("Items to sell:");
+            //Debug.Log("Items to sell:");
             for (int i = 0; i < items.Length; i++)
             {
                 var item = items[i];
                 _items.Add(item);
-                Debug.Log($"{item.Name}");
+                //Debug.Log($"{item.Name}");
             }
         }
         public bool Buy(int index, int money)

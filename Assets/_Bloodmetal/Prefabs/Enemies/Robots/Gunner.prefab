@@ -190,11 +190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2910431236127498629, guid: a4ea2e4ace77d674a9c9eb42972f2a52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2910431236127498629, guid: a4ea2e4ace77d674a9c9eb42972f2a52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2910431236127498629, guid: a4ea2e4ace77d674a9c9eb42972f2a52, type: 3}
       propertyPath: m_LocalPosition.z
@@ -275,8 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed4d09c35b6ebf4e92fb6f09d8adf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 6707723527685630381, guid: 964f0224a79f36a4b9eb0a7e4b642b2f, type: 3}
   Waypoints: []
+  WaypoinReachDistance: 0.1
+  Projectile: {fileID: 6707723527685630381, guid: 964f0224a79f36a4b9eb0a7e4b642b2f, type: 3}
   Speed: 2
   VisisonRange: 5
   AttackCooldown: 1

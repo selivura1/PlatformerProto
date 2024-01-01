@@ -6,8 +6,8 @@ namespace Selivura
 {
     public class EnemySpawnPoint : MonoBehaviour
     {
-        [SerializeField] private Enemy _enemy;
-        protected Enemy spawned;
+        [SerializeField] private EnemyHealth _enemy;
+        protected EnemyHealth spawned;
         protected Player _player;
         public UnityEvent OnEnemyCleared;
         public bool SpawnAutomatically = false;
@@ -17,6 +17,10 @@ namespace Selivura
             _player.OnPlayerRespawn += OnPlayerRespawn;
             if (SpawnAutomatically)
                 Spawn();
+        }
+        private void OnDestroy()
+        {
+            _player.OnPlayerRespawn -= OnPlayerRespawn;
         }
         private void OnPlayerRespawn()
         {

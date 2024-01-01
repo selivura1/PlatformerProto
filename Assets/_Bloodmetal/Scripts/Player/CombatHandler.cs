@@ -71,7 +71,7 @@ namespace Selivura
             {
                 if (target.TryGetComponent(out IDamageable victim))
                 {
-                    if (victim != _player)
+                    if (_player != (object)victim)
                     {
                         victim.TakeDamage(_meleeAttackDamage);
                         if (target.TryGetComponent(out IPunchable punchy))

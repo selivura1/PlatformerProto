@@ -7,7 +7,7 @@ namespace Selivura
     {
         Transform _transform;
         Transform[] _waypoints;
-        Enemy _enemy;
+        EnemyMovement _enemyMovement;
 
         private int _currentWaypointIndex = 0;
 
@@ -21,7 +21,7 @@ namespace Selivura
             _transform = transform;
             _waypoints = waypoints;
             _speed = speed;
-            _enemy = _transform.GetComponent<Enemy>();
+            _enemyMovement = _transform.GetComponent<EnemyMovement>();
             _reachDistance = reachDistance;
         }
         public override NodeState Evaluate()
@@ -40,12 +40,12 @@ namespace Selivura
                     _transform.position = wp.position;
                     _waitCounter = 0;
                     _waiting = true;
-                    _enemy.StopMoving();
+                    _enemyMovement.StopMoving();
                     _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
                 }
                 else
                 {
-                    _enemy.Move(wp.position - _transform.position, _speed);
+                    _enemyMovement.Move(wp.position - _transform.position, _speed);
                 }
             }
 

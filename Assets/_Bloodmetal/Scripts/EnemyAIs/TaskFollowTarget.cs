@@ -6,12 +6,12 @@ namespace Selivura
     public class TaskFollowTarget : Node
     {
         Transform _transform;
-        Enemy _enemy;
+        EnemyMovement _enemyMovement;
         private float _speed = 2;
         public TaskFollowTarget(Transform transform, float speed)
         {
             _transform = transform;
-            _enemy = _transform.GetComponent<Enemy>();
+            _enemyMovement = _transform.GetComponent<EnemyMovement>();
             _speed = speed;
         }
 
@@ -20,7 +20,7 @@ namespace Selivura
             Transform target = (Transform)GetData("target");
             if (Vector2.Distance(_transform.position, target.position) > 0.01f)
             {
-                _enemy.Move(target.position - _transform.position, _speed);
+                _enemyMovement.Move(target.position - _transform.position, _speed);
             }
             state = NodeState.Running;
             return state;

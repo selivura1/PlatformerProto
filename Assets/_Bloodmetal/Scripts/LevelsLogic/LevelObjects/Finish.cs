@@ -13,7 +13,8 @@ namespace Selivura
         protected override void OnTriggeredPlayer(Player player)
         {
             Debug.Log("WIN " + (Time.time - _startTime).ToString("F2"));
-            player.GetComponent<PlayerInputHandler>().enabled = false;
+            player.GetComponent<PlayerInputHandler>().EnableControls = false;
+            FindAnyObjectByType<Level>().Quit(true);
             //Invoke(nameof(Restart), 3);
         }
         private void Restart()
