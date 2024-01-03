@@ -18,6 +18,7 @@ namespace Selivura
         public bool EnableControls = true;
         private void OnEnable()
         {
+            Application.targetFrameRate = 60;
             Controls = new MainControls();
             Controls.Enable();
             _direction = GetComponent<PlayerDirection>();
@@ -45,15 +46,18 @@ namespace Selivura
             //}
             RecieveInput();
         }
+        private void FixedUpdate()
+        {
+            if (!_combat.IsShooting)
+                _movement.MoveHorizontally(DirectionInput.x);
+            else
+                _movement.MoveHorizontally(0);
+        }
         private void RecieveInput()
         {
             if (!EnableControls)
                 return;
             DirectionInput = Controls.Game.Move.ReadValue<Vector2>();
-
-            _movement.MoveHorizontally(DirectionInput.x);
-            _direction.SetDirection(new Vector2(_direction.Direction.x, DirectionInput.y));
-
             if (Controls.Game.Dash.WasPerformedThisFrame())
                 _movement.Dash(Mathf.RoundToInt(DirectionInput.x));
             if (Controls.Game.Jump.WasPressedThisFrame()) //Не менять на IsPressed(), пожалеешь
@@ -64,6 +68,7 @@ namespace Selivura
             {
                 _movement.ReleaseJump();
             }
+            _direction.SetDirection(new Vector2(_direction.Direction.x, DirectionInput.y));
 
             Attack = Controls.Game.Attack.IsPressed();
             AltAttack = Controls.Game.AltAttack.WasPerformedThisFrame();
@@ -73,7 +78,7 @@ namespace Selivura
             {
                 if (_isGamepad)
                 {
-                    if (_combat.CurrentWeapon != null)
+                    if (_combat.CurrentWeapon != null && !(_movement.IsJumping || _movement.IsFalling || _movement.IsWallJumping) )
                     {
                         _combat.CurrentWeapon.Attack(Controls.Game.Aim.ReadValue<Vector2>());
                     }
@@ -82,7 +87,7 @@ namespace Selivura
                 {
                     if (_combat.CurrentWeapon != null && _combat.AllowRangedAttack)
                     {
-                        _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+                        _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - _combat.CurrentWeapon.transform.position);
                     }
                 }
             }

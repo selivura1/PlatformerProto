@@ -15,8 +15,11 @@ namespace Selivura
         protected Player player;
         protected ProjectilePool projectilePool;
         public WeaponState WeaponState { get; protected set; }
-        protected float attackTimer = 0;
+        public float AttackTimer { get; protected set; } = 0;
         protected float cooldownTimer = 0;
+        public Vector2 LastAttackDirection { get; protected set; }
+        public delegate void AttackingDelegate(Vector2 direction);
+        public event AttackingDelegate OnAttack;
         private void Awake()
         {
             projectilePool = FindAnyObjectByType<ProjectilePool>();
@@ -24,17 +27,17 @@ namespace Selivura
         }
         private void FixedUpdate()
         {
-            AttackTimer();
+            ProcessAttackTimer();
             CooldownTimer();
             OnFixedUpdate();
         }
         protected virtual void OnFixedUpdate() { }
-        private void AttackTimer()
+        private void ProcessAttackTimer()
         {
+            AttackTimer -= Time.fixedDeltaTime;
             if (WeaponState == WeaponState.Attacking)
             {
-                attackTimer -= Time.fixedDeltaTime;
-                if (attackTimer <= 0)
+                if (AttackTimer <= 0)
                 {
                     WeaponState = WeaponState.Cooldown;
                     cooldownTimer = data.CooldownTime;
@@ -57,8 +60,11 @@ namespace Selivura
         {
             if (WeaponState == WeaponState.Idle)
             {
-                WeaponState = WeaponState.Attacking;
-                attackTimer = data.AttackDuration;
+                direction.Normalize();
+                WeaponState = WeaponState.Attacking;      
+                AttackTimer = data.AttackDuration;
+                LastAttackDirection = direction;
+                OnAttack?.Invoke(direction);
                 DoAttackLogic(direction);
             }
         }

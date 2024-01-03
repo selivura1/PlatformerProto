@@ -8,7 +8,16 @@ namespace Selivura
     {
         public bool AllowRangedAttack = true;
         public bool AllowMeleeAttack = true;
-
+        public bool IsShooting
+        {
+            get
+            {
+                if (CurrentWeapon != null)
+                    return CurrentWeapon.AttackTimer >= -CurrentWeapon.Data.AttackDuration;
+                else
+                    return false;
+            }
+        }
         [SerializeField] CheckBox _meleeHitbox = new CheckBox(Vector2.one, Vector2.zero);
         [SerializeField] LayerMask _attackableMask;
         [SerializeField] float _meleeAttackDamage = 1;
@@ -20,13 +29,36 @@ namespace Selivura
         Player _player;
         EquipmentManager _equipment;
         [SerializeField] float _punchPower = 15;
+
         public Action OnMeleeAttack;
         public Weapon CurrentWeapon { get; private set; }
-        public void SetWeapon(Weapon newWeapon)
+        public delegate void AttackingDelegate(Vector2 direction);
+        public event AttackingDelegate OnAttack;
+        public Vector2 LastAttackDirection
+        {
+            get
+            {
+                if (CurrentWeapon != null)
+                    return CurrentWeapon.LastAttackDirection;
+                else
+                    return Vector2.zero;
+            }
+        }
+    public void SetWeapon(Weapon newWeapon)
         {
             if (CurrentWeapon)
+            {
                 Destroy(CurrentWeapon.gameObject);
-            CurrentWeapon = Instantiate(newWeapon, transform);
+                CurrentWeapon.OnAttack -= InvokeOnAttack;
+            }
+                var spawned = Instantiate(newWeapon, transform);
+            spawned.transform.localPosition = newWeapon.Data.Offset;
+            CurrentWeapon = spawned;
+            CurrentWeapon.OnAttack += InvokeOnAttack;
+        }
+        private void InvokeOnAttack(Vector2 direction)
+        {
+            OnAttack?.Invoke(direction);
         }
         private void Awake()
         {
@@ -76,7 +108,7 @@ namespace Selivura
                         victim.TakeDamage(_meleeAttackDamage);
                         if (target.TryGetComponent(out IPunchable punchy))
                         {
-                            punchy.Punch((target.transform.position - transform.position) * _punchPower);
+                            punchy.Punch((target.transform.position - (transform.position + _meleeHitbox.Position)) * _punchPower);
                         }
                     }
                 }

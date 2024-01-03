@@ -14,6 +14,10 @@ namespace Selivura
             if (_openByDefault)
                 Close(false);
         }
+        private void OnDestroy()
+        {
+            _player.OnPlayerRespawn -= OnPlayerRespawn;
+        }
         public void OnPlayerRespawn()
         {
             if (_openByDefault)

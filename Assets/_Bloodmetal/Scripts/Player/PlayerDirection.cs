@@ -5,6 +5,16 @@ namespace Selivura
     public class PlayerDirection : MonoBehaviour
     {
         public Vector2 Direction { get; private set; }
+        private CombatHandler _combatHandler;
+        private void Awake()
+        {
+            _combatHandler = GetComponent<CombatHandler>();
+            _combatHandler.OnAttack += SetDirection;
+        }
+        private void OnDestroy()
+        {
+            _combatHandler.OnAttack -= SetDirection;
+        }
         public void SetDirection(Vector2 direction)
         {
             Direction = direction;

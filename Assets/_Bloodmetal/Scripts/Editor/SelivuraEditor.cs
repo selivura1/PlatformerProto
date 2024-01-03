@@ -1,3 +1,5 @@
+
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 using UnityEditor;
 
@@ -5,7 +7,6 @@ namespace Selivura
 {
     public class SelivuraEditor
     {
-#if UNITY_EDITOR
         [MenuItem("selivura/Play from main scene")]
         public static void PlayFromMainScene()
         {
@@ -16,5 +17,6 @@ namespace Selivura
             EditorApplication.EnterPlaymode();
         }
     }
-#endif
 }
+
+#endif

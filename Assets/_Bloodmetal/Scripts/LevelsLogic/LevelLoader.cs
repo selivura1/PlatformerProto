@@ -84,6 +84,6 @@ namespace Selivura
                 _ = RestartCurrentLevel();
             }
         }
-    }
 #endif
+    }
 }

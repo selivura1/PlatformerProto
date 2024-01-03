@@ -7,6 +7,7 @@ namespace Selivura
     {
         public string Name = "Rifle";
         public string Description = "Desc";
+        public Vector2 Offset = new Vector2(0,1);
         public int WeaponID;
         public bool UnlockedFromStart = false;
         public int Price = 250;

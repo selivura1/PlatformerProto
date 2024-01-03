@@ -12,6 +12,7 @@ namespace Selivura
         public bool IsJumping { get; private set; } = false;
         public bool IsWallJumping { get; private set; } = false;
         public bool IsDashing { get; private set; } = false;
+        public bool IsFalling => !IsJumping && !IsWallJumping && !IsDashing && LastGroundedTime <= 0;
         private bool _jumpInputReleased = true;
         private float _wallJumpTime;
         private float _lastWallHangedTime;
