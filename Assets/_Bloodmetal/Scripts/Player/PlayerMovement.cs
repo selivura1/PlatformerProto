@@ -105,7 +105,7 @@ namespace Selivura
         }
         public void Jump()
         {
-            if (CanJump())
+            if (CanJump()) 
             {
                 _lastJumpInputTime = 0;
                 float force = _data.JumpForce;

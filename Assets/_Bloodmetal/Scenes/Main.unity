@@ -2399,10 +2399,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 477376812428130787, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: bf3ea7f941666384abbb26e0277bf21d, type: 2}
     - target: {fileID: 2542257808773257960, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2447,40 +2443,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4563583929198619449, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-    - target: {fileID: 6913450494163466884, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2542257808773257960, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 665058345130547177}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
---- !u!1 &665058345130547176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2542257808773257960, guid: 80ae32ab3c8106148ad7f878e0374fa5, type: 3}
-  m_PrefabInstance: {fileID: 665058345130547175}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &665058345130547177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665058345130547176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c978541528fa3640a880bfee0758f80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpVfx: {fileID: 7261434600161756952, guid: b5dbd0fc565edb044b0bfb63fe976ce3, type: 3}
 --- !u!1001 &4169682879417645530
 PrefabInstance:
   m_ObjectHideFlags: 0

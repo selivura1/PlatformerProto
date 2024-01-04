@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8445371622842268122}
   - component: {fileID: 3395990901715036317}
   - component: {fileID: 8024479568070742442}
+  - component: {fileID: 5361620441291327278}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -105,6 +106,7 @@ MonoBehaviour:
   _meleeAttacks:
   - Attack_1
   - Attack_2
+  _wallHangingParamName: IsWallHanging
 --- !u!114 &8285041117360742945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 0606197374ad48946b82df70069cb628, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -151,7 +153,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bf3ea7f941666384abbb26e0277bf21d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -206,7 +208,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -349,6 +351,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 1.25}
   m_EdgeRadius: 0.125
+--- !u!114 &5361620441291327278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542257808773257960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c978541528fa3640a880bfee0758f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpVfx: {fileID: 7261434600161756952, guid: b5dbd0fc565edb044b0bfb63fe976ce3, type: 3}
 --- !u!1 &6913450494163466884
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4827878275907513126
 Transform:
   m_ObjectHideFlags: 0

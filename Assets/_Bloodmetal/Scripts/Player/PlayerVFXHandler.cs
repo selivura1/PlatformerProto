@@ -11,16 +11,16 @@ namespace Selivura
         VFXPool _vfxPool;
         PlayerMovement _movement;
         private void Start()
-        {
+         {
             _vfxPool = VFXPool.instance;
             _movement = GetComponent<PlayerMovement>();
-            _movement.OnGroundJump += OnJump;
+            _movement.OnGroundJump += OnPlayerJumped;
         }
         private void OnDestroy()
         {
-            _movement.OnGroundJump -= OnJump;
+            _movement.OnGroundJump -= OnPlayerJumped;
         }
-        public void OnJump()
+        private void OnPlayerJumped()
         {
             VFX spawned = _vfxPool.GetVFX(_jumpVfx);
             spawned.transform.position = transform.position;
