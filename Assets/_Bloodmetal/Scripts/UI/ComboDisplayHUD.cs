@@ -10,7 +10,7 @@ namespace Selivura
         ComboCounter _comboCounter;
         private void Awake()
         {
-            _comboCounter = FindAnyObjectByType<ComboCounter>();
+            _comboCounter = ComboCounter.instance;
             _comboCounter.OnComboIncreased += UpdateCombo;
             _comboCounter.OnComboReset += ResetCombo;
             _text = GetComponent<TMP_Text>();

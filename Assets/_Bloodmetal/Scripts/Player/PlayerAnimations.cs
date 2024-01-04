@@ -14,6 +14,7 @@ namespace Selivura
         [SerializeField] private string _ShootXParamName = "ShootX";
         [SerializeField] private string _ShootYParamName = "ShootY";
         [SerializeField] private string[] _meleeAttacks = { "Melee_1", "Melee_2" };
+        [SerializeField] private string _wallHangingParamName = "IsWallHanging";
         void Awake()
         {
             _anim = GetComponent<Animator>();
@@ -29,9 +30,13 @@ namespace Selivura
         {
             if (_movement.LastGroundedTime > 0 && !_movement.IsJumping && !_movement.IsWallJumping)
                 _anim.SetFloat(_horizontalMovementParamName, Mathf.Abs(_movement.GetCurrentMovementSpeed().x));
-            _anim.SetBool(_isJumpingParamName, _movement.IsJumping);
+            _anim.SetBool(_isJumpingParamName, _movement.IsJumping || _movement.IsWallJumping);
             _anim.SetBool(_isFallingParamName, _movement.IsFalling);
             _anim.SetBool(_isShootingParamName, _combat.IsShooting);
+
+            if(_movement.AllowWalljump)
+                _anim.SetBool(_wallHangingParamName, _movement.IsWallHanging);
+
             if(_combat.IsShooting)
             {
                 _anim.SetFloat(_ShootYParamName, _combat.LastAttackDirection.y);

@@ -23,7 +23,7 @@ namespace Selivura
             _currentHealth -= amount;
             if (_currentHealth <= 0)
             {
-                FindAnyObjectByType<ComboCounter>().IncreaseCombo(1);
+                ComboCounter.instance.IncreaseCombo(1);
                 Death();
             }
         }

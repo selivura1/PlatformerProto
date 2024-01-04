@@ -27,7 +27,6 @@ namespace Selivura
         float _lastAttackTime;
         PlayerMovement _movement;
         Player _player;
-        EquipmentManager _equipment;
         [SerializeField] float _punchPower = 15;
 
         public Action OnMeleeAttack;
@@ -60,16 +59,15 @@ namespace Selivura
         {
             OnAttack?.Invoke(direction);
         }
-        private void Awake()
+        private void Start()
         {
-            _equipment = FindAnyObjectByType<EquipmentManager>();
             _movement = GetComponent<PlayerMovement>();
             _player = GetComponent<Player>();
-            _equipment.OnEquipped += SetWeapon;
+            EquipmentManager.instance.OnEquipped += SetWeapon;
         }
         private void OnDestroy()
         {
-            _equipment.OnEquipped -= SetWeapon;
+            EquipmentManager.instance.OnEquipped -= SetWeapon;
         }
         private void FixedUpdate()
         {

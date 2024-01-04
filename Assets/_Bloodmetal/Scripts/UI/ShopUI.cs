@@ -13,7 +13,7 @@ namespace Selivura
         private void Awake()
         {
             _shop = FindAnyObjectByType<Shop>(); // не дает найти по интерфейсу((
-            _saveManager = FindAnyObjectByType<SaveManager>();
+            _saveManager = SaveManager.instance;
             _saveManager.OnSaveChanged += Refresh;
         }
         private void OnEnable()

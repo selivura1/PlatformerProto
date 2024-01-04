@@ -13,10 +13,10 @@ namespace Selivura
         private List<LevelInfoDisplay> _displaysSpawned = new List<LevelInfoDisplay>();
         private void Awake()
         {
-            _database = FindAnyObjectByType<Database>();
-            _equipment = FindAnyObjectByType<EquipmentManager>();
-            _saveManager = FindAnyObjectByType<SaveManager>();
-        }
+            _database = Database.instance;
+            _equipment = EquipmentManager.instance;
+            _saveManager = SaveManager.instance;
+        }       
         private void OnEnable()
         {
             Refresh();

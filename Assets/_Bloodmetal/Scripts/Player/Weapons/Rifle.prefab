@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 249da4456b8698046bd1c9494d3b19e5, type: 2}
-  _attackDuringDashEvery: 0.05
+  _attackDuringDashEvery: 0.025

@@ -15,10 +15,15 @@ MonoBehaviour:
   Name: Revolver
   Description: Desc
   Offset: {x: 0, y: 1}
+  WeaponLength: 1
   WeaponID: 1
   UnlockedFromStart: 0
   Price: 250
   Damage: 1
   AttackDuration: 0.15
   CooldownTime: 0.4
+  Spread: 2
+  WallMask:
+    serializedVersion: 2
+    m_Bits: 193
   BulletPrefab: {fileID: 6707723527685630381, guid: 7271c1515a8049942b3a1fba1640004a, type: 3}

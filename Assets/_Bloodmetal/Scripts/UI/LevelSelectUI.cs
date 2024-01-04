@@ -15,8 +15,8 @@ namespace Selivura
         }
         public void Refresh()
         {
-            var levelLoader = FindAnyObjectByType<LevelLoader>();
-            var saveManager = FindAnyObjectByType<SaveManager>();
+            var levelLoader = LevelLoader.instance;
+            var saveManager = SaveManager.instance;
             for (int i = 0; i < _spawnedDisplays.Count; i++)
             {
                 Destroy(_spawnedDisplays[i].gameObject);

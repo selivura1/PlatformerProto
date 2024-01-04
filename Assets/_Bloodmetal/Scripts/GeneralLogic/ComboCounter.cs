@@ -15,6 +15,7 @@ namespace Selivura
     }
     public class ComboCounter : MonoBehaviour
     {
+        public static ComboCounter instance;
         public int Combo { get; private set; }
         [SerializeField] float _comboReset = 5;
         private float _comboResetTimer;
@@ -46,7 +47,18 @@ namespace Selivura
         public delegate void ComboChangeHandler(int combo);
         public event ComboChangeHandler OnComboIncreased;
         public event ComboChangeHandler OnComboReset;
-
+        private void Awake()
+        {
+            if (instance)
+            {
+                Destroy(this);
+                return;
+            }
+            else
+            {
+                instance = this;
+            }
+        }
         public void IncreaseCombo(int amount)
         {
             Combo += amount;

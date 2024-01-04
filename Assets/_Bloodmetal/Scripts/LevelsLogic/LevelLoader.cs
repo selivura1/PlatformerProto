@@ -5,6 +5,7 @@ namespace Selivura
 {
     public class LevelLoader : MonoBehaviour
     {
+        public static LevelLoader instance;
         [SerializeField] private LevelData[] _allLevels;
         public LevelData[] AllLevels => _allLevels;
         public int CurrentLevelIndex { get; private set; } = -2;
@@ -16,6 +17,15 @@ namespace Selivura
         public const string TEST_LEVEL_NAME = "Level_Test";
         private void Awake()
         {
+            if (instance)
+            {
+                Destroy(this);
+                return;
+            }
+            else
+            {
+                instance = this;
+            }
             _ = LoadMainMenu();
         }
         public async Awaitable RestartCurrentLevel()

@@ -13,6 +13,7 @@ namespace Selivura
         public bool IsWallJumping { get; private set; } = false;
         public bool IsDashing { get; private set; } = false;
         public bool IsFalling => !IsJumping && !IsWallJumping && !IsDashing && LastGroundedTime <= 0;
+        public bool IsWallHanging => _lastWallHangedTime >= 0;
         private bool _jumpInputReleased = true;
         private float _wallJumpTime;
         private float _lastWallHangedTime;
@@ -25,6 +26,9 @@ namespace Selivura
         public bool LockMovement = false;
         [SerializeField] private MovementData _data;
         Rigidbody2D _rb;
+
+        public delegate void MovementActionDelegate();
+        public event MovementActionDelegate OnGroundJump;
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -49,7 +53,7 @@ namespace Selivura
             }
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, _data.VelocityPower) * Mathf.Sign(speedDiff);
             _rb.AddForce(Vector2.right * movement);
-            if (_lastWallHangedTime < 0 && Mathf.Abs(input) > 0.1f)
+            if (!IsWallHanging && Mathf.Abs(input) > 0.1f)
                 _playerDirection.SetDirection(new Vector2(input, _playerDirection.Direction.y));
         }
         public void Dash(int input)
@@ -112,6 +116,7 @@ namespace Selivura
                 IsJumping = true;
                 IsWallJumping = false;
                 _jumpInputReleased = false;
+                OnGroundJump?.Invoke();
             }
             else if (CanWallJump())
             {
@@ -162,6 +167,7 @@ namespace Selivura
 
         private void WallCheck()
         {
+            if (!AllowWalljump) return;
             if (Physics2D.OverlapBox(transform.position + _data.RightWallCheck.Position, _data.RightWallCheck.Size, 0, _data.WallJumpLayer))
             {
                 _rightWallCheck.LastHangedTime = _data.CoyoteTime;
@@ -171,14 +177,17 @@ namespace Selivura
                 _leftWallCheck.LastHangedTime = _data.CoyoteTime;
             }
             _lastWallHangedTime = Mathf.Max(_leftWallCheck.LastHangedTime, _rightWallCheck.LastHangedTime);
-            //if (_rightWallCheck.LastHangedTime > 0)
-            //{
-            //    _playerDirection.SetDirection(new Vector2(-1, _playerDirection.Direction.y));
-            //}
-            //else if (_leftWallCheck.LastHangedTime > 0)
-            //{
-            //    _playerDirection.SetDirection(new Vector2(1, _playerDirection.Direction.y));
-            //}
+            if (IsWallHanging)
+            {
+                if (_rightWallCheck.LastHangedTime > 0 && IsFalling)
+                {
+                    _playerDirection.SetDirection(new Vector2(-1, _playerDirection.Direction.y));
+                }
+                else if (_leftWallCheck.LastHangedTime > 0 && IsFalling)
+                {
+                    _playerDirection.SetDirection(new Vector2(1, _playerDirection.Direction.y));
+                }
+            }
         }
 
         private void JumpCheck()

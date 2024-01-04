@@ -64,10 +64,9 @@ namespace Selivura
         }
         public override void Buy()
         {
-            var saveManager = GameObject.FindAnyObjectByType<SaveManager>();
-            saveManager.UnlockWeapon(WeaponID);
+            SaveManager.instance.UnlockWeapon(WeaponID);
             Debug.Log($"Bought weapon {Name} for {Price}");
-            Debug.Log($"Money left {saveManager.GetCurrentMoney()}");
+            Debug.Log($"Money left {SaveManager.instance.GetCurrentMoney()}");
         }
     }
     [Serializable]
@@ -83,8 +82,7 @@ namespace Selivura
         }
         public override void Buy()
         {
-            var saveManager = GameObject.FindAnyObjectByType<SaveManager>();
-            saveManager.UnlockUpgrade(UpgradeID);
+            SaveManager.instance.UnlockUpgrade(UpgradeID);
             Debug.Log($"Bought upgrade {Name} for {Price}");
         }
     }

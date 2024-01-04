@@ -27,14 +27,14 @@ namespace Selivura
         }
         private void OnPlayrRespawn()
         {
-            FindAnyObjectByType<ComboCounter>().ResetCombo();
+            ComboCounter.instance.ResetCombo();
         }
         private void OnLevelLoaded(int level)
         {
             var playerInputHandler = _player.GetComponent<PlayerInputHandler>();
-            var equipment = FindAnyObjectByType<EquipmentManager>();
-            equipment.UpdateAvailableEquipment(FindAnyObjectByType<Database>().EquippableWeapons);
-            equipment.EquipWeapon(FindAnyObjectByType<SaveManager>().GetLastEquippedWeapon());
+            var equipment = EquipmentManager.instance;
+            equipment.UpdateAvailableEquipment(Database.instance.EquippableWeapons);
+            equipment.EquipWeapon(SaveManager.instance.GetLastEquippedWeapon());
             GetComponent<CombatHandler>().SetWeapon(equipment.EquippedWeapon);
 
             _player.transform.position = Vector3.zero;

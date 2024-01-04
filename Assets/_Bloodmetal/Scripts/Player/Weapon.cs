@@ -13,7 +13,6 @@ namespace Selivura
         [SerializeField] protected WeaponData data;
         public WeaponData Data { get { return data; } }
         protected Player player;
-        protected ProjectilePool projectilePool;
         public WeaponState WeaponState { get; protected set; }
         public float AttackTimer { get; protected set; } = 0;
         protected float cooldownTimer = 0;
@@ -22,7 +21,6 @@ namespace Selivura
         public event AttackingDelegate OnAttack;
         private void Awake()
         {
-            projectilePool = FindAnyObjectByType<ProjectilePool>();
             player = GetComponentInParent<Player>();
         }
         private void FixedUpdate()
@@ -68,10 +66,23 @@ namespace Selivura
                 DoAttackLogic(direction);
             }
         }
+        protected static Vector2 CalculateDirection(Vector2 direction, float spread)
+        {
+            var angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            angle += Random.Range(-spread, spread);
+            return Quaternion.AngleAxis(angle, -Vector3.forward) * Vector2.up;
+        }
         public virtual void DoAttackLogic(Vector2 direction)
         {
-            var spawned = projectilePool.GetProjectile(data.BulletPrefab);
-            spawned.transform.position = transform.position;
+            direction = CalculateDirection(direction, Data.Spread);
+            var hit = Physics2D.Raycast(transform.position, direction, Data.WeaponLength, Data.WallMask);
+            float spawnDistance = hit.distance;
+            if(spawnDistance <= 0)
+            {
+                spawnDistance = Data.WeaponLength;
+            }
+            var spawned = ProjectilePool.instance.GetProjectile(data.BulletPrefab);
+            spawned.transform.position = transform.position + (Vector3)(direction * spawnDistance);
             spawned.transform.right = direction;
             spawned.Initialize();
         }

@@ -11,7 +11,7 @@ namespace Selivura
         public const int UPGRADE_HEALTH_AMOUNT = 5;
         private void Awake()
         {
-            _saveManager = FindAnyObjectByType<SaveManager>();
+            _saveManager = SaveManager.instance;
             _movement = GetComponent<PlayerMovement>();
             _player = GetComponent<Player>();
             _player.OnPlayerRespawn += UpdatePlayerAbilities;

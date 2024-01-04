@@ -74,18 +74,19 @@ namespace Selivura
             AltAttack = Controls.Game.AltAttack.WasPerformedThisFrame();
             if (AltAttack)
                 _combat.MeleeAttack();
-            if (Attack)
+
+            if (Attack && _combat.AllowRangedAttack && !(_movement.IsJumping || _movement.IsFalling || _movement.IsWallJumping))
             {
                 if (_isGamepad)
                 {
-                    if (_combat.CurrentWeapon != null && !(_movement.IsJumping || _movement.IsFalling || _movement.IsWallJumping) )
+                    if (_combat.CurrentWeapon != null)
                     {
                         _combat.CurrentWeapon.Attack(Controls.Game.Aim.ReadValue<Vector2>());
                     }
                 }
                 else
                 {
-                    if (_combat.CurrentWeapon != null && _combat.AllowRangedAttack)
+                    if (_combat.CurrentWeapon != null)
                     {
                         _combat.CurrentWeapon.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition) - _combat.CurrentWeapon.transform.position);
                     }

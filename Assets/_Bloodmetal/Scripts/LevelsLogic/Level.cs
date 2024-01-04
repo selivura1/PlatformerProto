@@ -12,8 +12,8 @@ namespace Selivura
         private SaveManager _saveManager;
         public void Awake()
         {
-            _saveManager = FindAnyObjectByType<SaveManager>();
-            _levelLoader = FindAnyObjectByType<LevelLoader>();
+            _saveManager = SaveManager.instance;
+            _levelLoader = LevelLoader.instance;
             _currentData = _saveManager.GetLevelsProgress(_levelLoader.CurrentLevelIndex);
             //for (int i = 0; i < _currentData.CollectiblesEarned.Length; i++)
             //{

@@ -8,6 +8,6 @@ public class LevelUnlocker : MonoBehaviour
     public void Unlock(int level)
     {
         var data = new LevelProgressData(false, true);
-        FindAnyObjectByType<SaveManager>().SaveLevelData(data, level);
+        SaveManager.instance.SaveLevelData(data, level);
     }
 }

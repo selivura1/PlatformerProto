@@ -5,6 +5,7 @@ namespace Selivura
 {
     public class SaveManager : MonoBehaviour
     {
+        public static SaveManager instance;
         [SerializeField] SaveFile blankSave;
         public SaveFile BlankSave { get { return blankSave; } }
         [SerializeField] SaveFile _save;
@@ -16,12 +17,22 @@ namespace Selivura
         public bool EnableSaveWriting = true;
         public delegate void SaveChangeDelegate();
         public event SaveChangeDelegate OnSaveChanged;
-        EquipmentManager _equipment;
         private void Awake()
         {
-            _equipment = FindAnyObjectByType<EquipmentManager>();
-            _equipment.OnEquipped += (weapon) => SetLastEquippedWeapon(weapon.Data.WeaponID);
+            if (instance)
+            {
+                Destroy(this);
+                return;
+            }
+            else
+            {
+                instance = this;
+            }
             ReadSaveFromPath(SAVE_RELATIVE_PATH);
+        }
+        private void Start()
+        {
+            EquipmentManager.instance.OnEquipped += (weapon) => SetLastEquippedWeapon(weapon.Data.WeaponID);
         }
         public LevelProgressData GetLevelsProgress(int levelID)
         {
@@ -72,7 +83,7 @@ namespace Selivura
         }
         public void ResetSave()
         {
-            for (int i = 0; i < FindAnyObjectByType<LevelLoader>().AllLevels.Length; i++)
+            for (int i = 0; i < LevelLoader.instance.AllLevels.Length; i++)
             {
                 _dataService.DestroyData(LEVEL_RELATIVE_PATH_START + i + LEVEL_RELATIVE_PATH_END);
             }
