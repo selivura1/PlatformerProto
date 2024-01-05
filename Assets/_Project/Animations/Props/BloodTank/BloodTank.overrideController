@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BloodTank
+  m_Controller: {fileID: 9100000, guid: 4c62a8e246d73464196540cd4cc1f5b0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0223fbb15a4d5b84b93d3c2737b41f37, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7e4dbc3f41e4ad44d976c3172bbc0be6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8e1741c42e9226142b9b37744f0bc71a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 52b37369e7e69a34989230c4e949c0d6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6c8f8f12a4b31ea4d9defbafbac897a2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: dc3020eeff35b9542875a5443deaf2d3, type: 2}
