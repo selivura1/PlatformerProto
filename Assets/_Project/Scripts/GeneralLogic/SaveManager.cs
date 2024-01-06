@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Selivura
@@ -91,6 +92,16 @@ namespace Selivura
             _save = blankSave;
             WriteSave();
         }
+        public float GetSoundVolume()
+        {
+            return _save.SoundVolume;
+        }
+        public void ChangeSoundVolume(float value)
+        {
+            _save.SoundVolume = value;
+            AudioListener.volume = value;
+            WriteSave();
+        }
         public void ChangeMoney(int amount)
         {
             _save.Money += amount;
@@ -164,6 +175,7 @@ namespace Selivura
         public class SaveFile
         {
             public int LastEquippedWeapon;
+            public float SoundVolume = .5f;
             public bool WallJumpUnlocked = false;
             public bool DashUnlocked = false;
             public bool[] WeaponsUnlocked;

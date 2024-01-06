@@ -35,6 +35,6 @@ public class PlayerTests
         player.transform.position = position;
         coin.transform.position = position;
         yield return new WaitForFixedUpdate();
-        Assert.AreEqual(1, ScoreCounter.Score);
+        Assert.AreEqual(50, ScoreCounter.Score);
     }
 }

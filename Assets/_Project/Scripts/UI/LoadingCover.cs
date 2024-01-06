@@ -10,7 +10,7 @@ namespace Selivura
         Image _image;
         [SerializeField] float _speed = 15;
         [SerializeField] float _delay = 1;
-        private void Start()
+        private void Awake()
         {
             _image = GetComponent<Image>();
             Cover();
