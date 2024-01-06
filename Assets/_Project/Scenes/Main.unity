@@ -3660,7 +3660,6 @@ MonoBehaviour:
   _allLevels:
   - {fileID: 11400000, guid: 2aff4714c3ef0ce47b13593d4eae0da5, type: 2}
   - {fileID: 11400000, guid: ce4b22a9cacb709418ba10068c64541b, type: 2}
-  - {fileID: 11400000, guid: 0298f67f6de1dbd488f63d1ab5053631, type: 2}
   CurrentLevel: {fileID: 0}
 --- !u!1 &1644602775
 GameObject:
